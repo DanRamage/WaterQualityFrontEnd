@@ -324,141 +324,149 @@
                     });
                     if(site_type == 'Default')
                     {
-                        if(vm.advisoryActive) {
-                            if ('advisory' in properties[site_type]) {
-                                let dataFresh = FeatureUtils.isDataFresh(properties[site_type].advisory);
-                                if(dataFresh)
-                                {
-                                    let value = properties[site_type].advisory.value;
-                                    let hi_limit = vm.$store.state.advisory_limits.hi;
-                                    let lo_limit = vm.$store.state.advisory_limits.low;
-                                    if (value >= hi_limit.minimum) {
-                                        //console.debug("Feature: " + feature.getId() + " Hi style value: " + value);
-                                        icon = new Icon({
-                                            src: HiMarkerIcon,
-                                            scale: icon_scale
-                                        });
-                                    } else if (value < lo_limit.maximum) {
-                                        //console.debug("Feature: " + feature.getId() + " Low style value: " + value);
-                                        icon = new Icon({
-                                            src: LowMarkerIcon,
-                                            scale: icon_scale
-                                        });
-                                    }
-                                }
-                            } else {
-                                console.debug("Feature: " + feature.getId() + " No advisory data found.");
-                            }
-                        }
-                        else
+                        try
                         {
-                            icon = new Icon({
+                            if (vm.advisoryActive) {
+                              if ('advisory' in properties[site_type]) {
+                                let dataFresh = FeatureUtils.isDataFresh(properties[site_type].advisory);
+                                if (dataFresh) {
+                                  let value = properties[site_type].advisory.value;
+                                  let hi_limit = vm.$store.state.advisory_limits.hi;
+                                  let lo_limit = vm.$store.state.advisory_limits.low;
+                                  if (value >= hi_limit.minimum) {
+                                    //console.debug("Feature: " + feature.getId() + " Hi style value: " + value);
+                                    icon = new Icon({
+                                      src: HiMarkerIcon,
+                                      scale: icon_scale
+                                    });
+                                  } else if (value < lo_limit.maximum) {
+                                    //console.debug("Feature: " + feature.getId() + " Low style value: " + value);
+                                    icon = new Icon({
+                                      src: LowMarkerIcon,
+                                      scale: icon_scale
+                                    });
+                                  }
+                                }
+                              } else {
+                                console.debug("Feature: " + feature.getId() + " No advisory data found.");
+                              }
+                            } else {
+                              icon = new Icon({
                                 src: NoneMarkerIcon,
                                 scale: icon_scale
-                            });
-                            if('nowcasts' in properties[site_type]) {
+                              });
+                              if ('nowcasts' in properties[site_type]) {
                                 let level = properties[site_type].nowcasts.level;
-                                if(level == 'LOW')
-                                {
-                                    icon = new Icon({
-                                        src: LowMarkerIcon,
-                                        scale: icon_scale
-                                    });
+                                if (level == 'LOW') {
+                                  icon = new Icon({
+                                    src: LowMarkerIcon,
+                                    scale: icon_scale
+                                  });
+                                } else if (level == 'HIGH') {
+                                  icon = new Icon({
+                                    src: HiMarkerIcon,
+                                    scale: icon_scale
+                                  });
                                 }
-                                else if(level == 'HIGH')
-                                {
-                                    icon = new Icon({
-                                        src: HiMarkerIcon,
-                                        scale: icon_scale
-                                    });
-                                }
+                              }
                             }
+                            if (!(vm.legend_icons.includes('Water Quality'))) {
+                              vm.legend_icons.push("Water Quality");
+                              /*vm.legend_icons['Water Quality'] = {
+                                    'low': LowMarkerIcon,
+                                    'high': HiMarkerIcon,
+                                    'none': NoneMarkerIcon
+                                }*/
+                            }
+                            vm;
                         }
-                        if(!(vm.legend_icons.includes('Water Quality'))) {
-                            vm.legend_icons.push("Water Quality");
-                            /*vm.legend_icons['Water Quality'] = {
-                                'low': LowMarkerIcon,
-                                'high': HiMarkerIcon,
-                                'none': NoneMarkerIcon
-                            }*/
+                        catch(error)
+                        {
+                          icon = new Icon({
+                            src: NoneMarkerIcon,
+                            scale: icon_scale
+                          });
+
+                          console.error(error);
                         }
-                        vm;
                     }
                     else if(site_type == 'Shellfish')
                     {
-                        if(site_type in properties) {
-                            //First check to see if our data is still fresh.
-                            let dataFresh = FeatureUtils.isDataFresh(properties[site_type].advisory);
-                            if (dataFresh) {
+                        try
+                        {
+                            if (site_type in properties) {
+                              //First check to see if our data is still fresh.
+                              let dataFresh = FeatureUtils.isDataFresh(properties[site_type].advisory);
+                              if (dataFresh) {
                                 //Shellfish values are either true for closed or false for open.
                                 let value = properties[site_type].advisory.value;
                                 if (!value) {
-                                    icon = new Icon({
-                                        src: ShellfishLowMarkerIcon,
-                                        scale: icon_scale
-                                    });
-                                }
-                                else {
-                                    icon = new Icon({
-                                        src: ShellfishHiMarkerIcon,
-                                        scale: icon_scale
-                                    });
-                                }
-                            }
-                            else {
-                                icon = new Icon({
-                                    src: ShellfishNoneMarkerIcon,
+                                  icon = new Icon({
+                                    src: ShellfishLowMarkerIcon,
                                     scale: icon_scale
+                                  });
+                                } else {
+                                  icon = new Icon({
+                                    src: ShellfishHiMarkerIcon,
+                                    scale: icon_scale
+                                  });
+                                }
+                              } else {
+                                icon = new Icon({
+                                  src: ShellfishNoneMarkerIcon,
+                                  scale: icon_scale
                                 });
+                              }
+                            }
+                            if (!(vm.legend_icons.includes('Shellfish'))) {
+                              vm.legend_icons.push("Shellfish");
                             }
                         }
-                        if(!(vm.legend_icons.includes('Shellfish'))) {
-                            vm.legend_icons.push("Shellfish");
-
-                            /*
-                            vm.legend_icons['Shellfish'] = {
-                                'low': ShellfishLowMarkerIcon,
-                                'high': ShellfishHiMarkerIcon,
-                                'none': ShellfishNoneMarkerIcon
-                            }*/
+                        catch(error)
+                        {
+                            icon = new Icon({
+                              src: ShellfishNoneMarkerIcon,
+                              scale: icon_scale
+                            });
+                            console.error(error);
                         }
-
                     }
                     else if(site_type == 'Rip Current')
                     {
-
-                        let dataFresh = FeatureUtils.isDataFresh(properties[site_type].advisory);
-                        if(dataFresh) {
-                            let value = properties[site_type].advisory.value;
-                            if (value == 'LOW') {
+                        try
+                        {
+                            let dataFresh = FeatureUtils.isDataFresh(properties[site_type].advisory);
+                            if (dataFresh) {
+                              let value = properties[site_type].advisory.value;
+                              if (value == 'LOW') {
                                 icon = new Icon({
-                                    src: RipCurrentLowMarkerIcon,
-                                    scale: icon_scale
+                                  src: RipCurrentLowMarkerIcon,
+                                  scale: icon_scale
                                 });
+                              } else {
+                                icon = new Icon({
+                                  src: RipCurrentHiMarkerIcon,
+                                  scale: icon_scale
+                                });
+                              }
                             } else {
-                                icon = new Icon({
-                                    src: RipCurrentHiMarkerIcon,
-                                    scale: icon_scale
-                                });
-                            }
-                        }
-                        else {
-                            icon = new Icon({
+                              icon = new Icon({
                                 src: RipCurrentNoneMarkerIcon,
                                 scale: icon_scale
+                              });
+                            }
+                            if (!(vm.legend_icons.includes('Rip Current'))) {
+                              vm.legend_icons.push("Rip Current");
+                            }
+                        }
+                        catch(error)
+                        {
+                            icon = new Icon({
+                              src: RipCurrentNoneMarkerIcon,
+                              scale: icon_scale
                             });
+                            console.error(error);
                         }
-                        if(!(vm.legend_icons.includes('Rip Current'))) {
-                            vm.legend_icons.push("Rip Current");
-
-                            /*
-                            vm.legend_icons['Rip Current'] = {
-                                'low': RipCurrentLowMarkerIcon,
-                                'high': RipCurrentHiMarkerIcon,
-                                'none': RipCurrentNoneMarkerIcon
-                            }*/
-                        }
-
                     }
                     else if(site_type == 'Camera Site') {
                         icon = new Icon({
