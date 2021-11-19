@@ -370,15 +370,6 @@
                                 }
                               }
                             }
-                            if (!(vm.legend_icons.includes('Water Quality'))) {
-                              vm.legend_icons.push("Water Quality");
-                              /*vm.legend_icons['Water Quality'] = {
-                                    'low': LowMarkerIcon,
-                                    'high': HiMarkerIcon,
-                                    'none': NoneMarkerIcon
-                                }*/
-                            }
-                            vm;
                         }
                         catch(error)
                         {
@@ -388,6 +379,9 @@
                           });
 
                           console.error(error);
+                        }
+                        if (!(vm.legend_icons.includes('Water Quality'))) {
+                          vm.legend_icons.push("Water Quality");
                         }
                     }
                     else if(site_type == 'Shellfish')
@@ -418,9 +412,6 @@
                                 });
                               }
                             }
-                            if (!(vm.legend_icons.includes('Shellfish'))) {
-                              vm.legend_icons.push("Shellfish");
-                            }
                         }
                         catch(error)
                         {
@@ -429,6 +420,9 @@
                               scale: icon_scale
                             });
                             console.error(error);
+                        }
+                        if (!(vm.legend_icons.includes('Shellfish'))) {
+                          vm.legend_icons.push("Shellfish");
                         }
                     }
                     else if(site_type == 'Rip Current')
@@ -455,9 +449,6 @@
                                 scale: icon_scale
                               });
                             }
-                            if (!(vm.legend_icons.includes('Rip Current'))) {
-                              vm.legend_icons.push("Rip Current");
-                            }
                         }
                         catch(error)
                         {
@@ -467,6 +458,9 @@
                             });
                             console.error(error);
                         }
+                        if (!(vm.legend_icons.includes('Rip Current'))) {
+                          vm.legend_icons.push("Rip Current");
+                        }
                     }
                     else if(site_type == 'Camera Site') {
                         icon = new Icon({
@@ -475,9 +469,6 @@
                         });
                         if(!(vm.legend_icons.includes('Camera Site'))) {
                             vm.legend_icons.push('Camera Site');
-                            /*vm.legend_icons['Camera Site'] = {
-                                'none': CameraIcon
-                            }*/
                         }
 
                     }

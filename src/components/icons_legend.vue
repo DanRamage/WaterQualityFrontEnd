@@ -70,68 +70,6 @@
                             Results are out of date/missing.
                         </li>
                     </ul>
-                    <!--
-                    <div v-if="hasIcons('Water Quality')">
-                        <b>Water Quality Sites</b>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item py-1">
-                                <img src="@/assets/images/low_marker_25x25.png" class="advisory_icon">
-                                Results are low.
-                            </li>
-                            <li class="list-group-item py-1">
-                                <img src="@/assets/images/high_marker_25x25.png" class="advisory_icon">
-                                Results are high.
-                            </li>
-                            <li class="list-group-item py-1">
-                                <img src="@/assets/images/none_marker_25x25.png" class="advisory_icon">
-                                Results are out of date/missing.
-                            </li>
-                        </ul>
-                    </div>
-                    <div v-if="hasIcons('Shellfish')">
-                        <b>Shellfish</b>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item py-1">
-                                <img src="@/assets/images/shellfish_low_marker_25x25.png" class="advisory_icon">
-                                Results are low.
-                            </li>
-                            <li class="list-group-item py-1">
-                                <img src="@/assets/images/shellfish_high_marker_25x25.png" class="advisory_icon">
-                                Results are high.
-                            </li>
-                            <li class="list-group-item py-1">
-                                <img src="@/assets/images/shellfish_none_marker_25x25.png" class="advisory_icon">
-                                Results are out of date/missing.
-                            </li>
-                        </ul>
-                    </div>
-                    <div v-if="hasIcons('Rip Current')">
-                        <b>Rip Current</b>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item py-1">
-                                <img src="@/assets/images/ripcurrent_low_marker_25x25.png" class="advisory_icon">
-                                Results are low.
-                            </li>
-                            <li class="list-group-item py-1">
-                                <img src="@/assets/images/ripcurrent_high_marker_25x25.png" class="advisory_icon">
-                                Results are high.
-                            </li>
-                            <li class="list-group-item py-1">
-                                <img src="@/assets/images/ripcurrent_none_marker_25x25.png" class="advisory_icon">
-                                Results are out of date/missing.
-                            </li>
-                        </ul>
-                    </div>
-                    <div v-if="hasIcons('Camera Site')">
-                        <b>Camera Site</b>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item py-1">
-                                <img src="@/assets/images/webcam_icon.png" class="advisory_icon">
-                                Video site.
-                            </li>
-                        </ul>
-                    </div>
-                    -->
 
                 </div>
             </div>
@@ -145,17 +83,6 @@
     Vue.use(CollapsePlugin);
     Vue.use(VBTogglePlugin);
 
-    /*
-    import LowMarkerIcon from '@/assets/images/low_marker_25x25.png'
-    import HiMarkerIcon from '@/assets/images/high_marker_25x25.png'
-    import NoneMarkerIcon from '@/assets/images/none_marker_25x25.png'
-    import CameraIcon from '@/assets/images/webcam_icon.png'
-    import ShellfishLowMarkerIcon from '@/assets/images/shellfish_low_marker_25x25.png'
-    import ShellfishHiMarkerIcon from '@/assets/images/shellfish_high_marker_25x25.png'
-    import ShellfishNoneMarkerIcon from '@/assets/images/shellfish_none_marker_25x25.png'
-    import RipCurrentLowMarkerIcon from '@/assets/images/ripcurrent_low_marker_25x25.png'
-    import RipCurrentHiMarkerIcon from '@/assets/images/ripcurrent_high_marker_25x25.png'
-    */
     export default {
         name: 'IconsLegend',
         props: ['icon_info'],
