@@ -18,13 +18,15 @@
             <template v-slot:sidebar-navlinks>
                 <div>
                     <p class="text-center mt-4">
-                        <a href="/" class="text-white card-link font-avenir"><h4>Forecast/Advisory</h4></a>
+                        <a href="/" class="text-white card-link font-avenir">
+                          <h4>Forecast/Advisory</h4>
+                        </a>
                     </p>
                     <p class="text-center mt-4">
                         <a href="/" class="text-white card-link font-avenir"><h4>Bacteria Sources</h4></a>
                     </p>
                     <p class="text-center">
-                        <b-dropdown id="locations-droplist" toggle-class="locations_droplist font-avenir" dropright text="<h3>Locations</h3>" variant="primary">
+                        <b-dropdown id="locations-droplist" toggle-class="locations_droplist font-avenir" dropright text="Locations" variant="primary">
                             <b-dropdown-item href="/killdevilhills/map">OUTER BANKS</b-dropdown-item>
                             <b-dropdown-item href="/myrtlebeach/map">MYRTLE BEACH</b-dropdown-item>
                             <b-dropdown-item href="/surfside/map">SURFSIDE</b-dropdown-item>
@@ -75,7 +77,7 @@
             </b-collapse>
 
             <div v-b-toggle.collapse-2 variant="outline-primary" class="text-blue avenir-font-light mt-4">
-                <span class="FAQ-text mr-4 font-weight-normal">What are we forecasting?</span>
+                <span class="FAQ-text mr-4 font-weight-normal">What are we nowcasting?</span>
                 <span class="whatis-opened FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-up']" /></span>
                 <span class="whatis-closed FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-right']" /></span>
             </div>
@@ -96,7 +98,7 @@
             </b-collapse>
 
             <div v-b-toggle.collapse-3 variant="outline-primary" class="text-blue avenir-font-light mt-4">
-                <span class="FAQ-text mr-4 font-weight-normal">What is the forecast? How is it generated?</span>
+                <span class="FAQ-text mr-4 font-weight-normal">What is the nowcast? How is it generated?</span>
                 <span class="whatis-opened FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-up']" /></span>
                 <span class="whatis-closed FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-right']" /></span>
             </div>
