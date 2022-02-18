@@ -31,7 +31,7 @@
         },
         mounted() {
             //let vm = this;
-            console.log("ErrorPage mounted.");
+            console.debug("ErrorPage mounted.");
 
             //We aren't passing the props in the vue route path, so we check the params to then set the properties.
             if ('params' in this.$route) {

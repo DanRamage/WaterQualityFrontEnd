@@ -157,7 +157,7 @@
             }
         },
         mounted() {
-            console.log("AboutPage mounted.");
+            console.debug("AboutPage mounted.");
         },
         methods: {
             resizeHandler() {

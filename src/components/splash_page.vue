@@ -194,13 +194,13 @@ export default {
       this.$router.push('/')
     },
     site_click (event, site) {
-      console.log('Site: ' + site + ' clicked')
+      console.debug('Site: ' + site + ' clicked')
     },
     /*
     This is the hover handler when the user hovers over a site button. We update the site slide.
      */
     site_btn_hover (event, SlideIndex) {
-      console.log('Site: ' + SlideIndex + ' hover')
+      console.debug('Site: ' + SlideIndex + ' hover')
       this.$refs.HTBCarousel.setSlide(SlideIndex)
     }
   },

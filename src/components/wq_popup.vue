@@ -206,7 +206,7 @@
                             this.graph_width = this.init_graph_width;
                             //this.graph_height = vm.$refs["advisory_graph"].clientHeight;
                             //this.graph_width = vm.$refs["advisory_graph"].clientWidth;
-                            console.log("Tab height: " + this.graph_height + " tab width: " + this.graph_width);
+                            console.debug("Tab height: " + this.graph_height + " tab width: " + this.graph_width);
 
                             let site_name = this.$store.state.site_name;
                             //We pull the last 365 days worth of data to show.
@@ -231,7 +231,7 @@
             },
             openGraph: function() {
                 /*
-                console.log("expandGraphClick handled. Window height: " + window.innerHeight
+                console.debug("expandGraphClick handled. Window height: " + window.innerHeight
                     + " Window width: " + window.innerWidth
                     + " graph column height: " + this.$refs.graph_column.clientHeight
                     + " graph column width: " + this.$refs.graph_column.clientWidth
@@ -297,7 +297,7 @@
                 let site_type = this.feature.properties.site_type;
                 if(site_type in this.feature.properties) {
                     if('advisory' in this.feature.properties[site_type]) {
-                        console.log("hasAdvisoryData is true.");
+                        console.debug("hasAdvisoryData is true.");
                         return(true);
                     }
                 }
@@ -332,7 +332,7 @@
                 let site_type = this.feature.properties.site_type;
                 if(site_type in this.feature.properties) {
                     if('nowcasts' in this.feature.properties[site_type]) {
-                        console.log("hasNowcastData is true.");
+                        console.debug("hasNowcastData is true.");
                         return(true);
                     }
                 }

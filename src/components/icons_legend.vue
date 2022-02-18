@@ -94,17 +94,17 @@
             };
         },
         mounted () {
-            console.log("IconsLegend mounted");
+            console.debug("IconsLegend mounted");
             this.mounted = true;
 
         },
         methods: {
             hasIcons(icon_type) {
                 if(this.mounted) {
-                    console.log("hasIcons checking: " + icon_type);
+                    console.debug("hasIcons checking: " + icon_type);
                     if (this.icon_info !== undefined) {
                         if (this.icon_info.includes(icon_type)) {
-                            console.log("hasIcons has: " + icon_type);
+                            console.debug("hasIcons has: " + icon_type);
                             return (true);
                         }
                     }

@@ -91,7 +91,7 @@
         },
         methods:{
             site_clicked(feature) {
-                console.log("Site: " + feature.properties.description + " clicked");
+                console.debug("Site: " + feature.properties.description + " clicked");
             }
         },
         beforeUpdate() {

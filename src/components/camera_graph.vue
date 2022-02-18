@@ -172,7 +172,7 @@
         },
         mounted() {
             let vm = this;
-            console.log("CameraGraph mounted.");
+            console.debug("CameraGraph mounted.");
 
             //We aren't passing the props in the vue route path, so we check the params to then set the properties.
             if('params' in this.$route) {
@@ -215,7 +215,7 @@
                 EventUtils.log_event(this.$gtag, 'graph', 'Camera Site', label, 0);
             },
             getCameraData(camera, object_type, start_date, end_date) {
-                console.log("Querying camera: :" + camera + ". Start: " + start_date +" End: " + end_date);
+                console.debug("Querying camera: :" + camera + ". Start: " + start_date +" End: " + end_date);
                 let vm=this;
                 vm;
                 //For the moment, we need to limit data pull to only 30 days. Otherwise the server can potentially run
@@ -316,7 +316,7 @@
                                }
                                median_count;
                                max_count;
-                               //console.log("Camera Stats. Avg: " + avg_count + " Median: " + median_count + " Max: " + max_count);
+                               //console.debug("Camera Stats. Avg: " + avg_count + " Median: " + median_count + " Max: " + max_count);
                                vm.graph_data.push([time_stamp_obj.valueOf(), avg_count]);
                            })
                         }
@@ -328,7 +328,7 @@
 
             },
             onClose() {
-                console.log("onClose modal_graph_closed event emitted.");
+                console.debug("onClose modal_graph_closed event emitted.");
                 this.$emit("modal_graph_closed");
             }
         }

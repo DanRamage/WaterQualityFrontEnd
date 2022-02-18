@@ -28,10 +28,20 @@
             }
         },
         methods: {
+          update(options) {
+            console.debug("update called.");
+            if(this.chart !== undefined) {
+              this.chart.update(options);
+            }
+          },
+          destroy() {
+            console.debug("destroy called.");
+            this.chart.destroy();
+          }
         },
         mounted()
         {
-            console.log("scatter_plot mounted")
+            console.debug("scatter_plot mounted id: " + this.id);
             //v-bind:style="{height: height, width: width }"
             var vm=this;
             vm;
@@ -49,12 +59,12 @@
         computed: {
             style_chart_height: function() {
                 let style = this.height + 'px';
-                console.log("chart height: " + style);
+                console.debug("chart height: " + style);
                 return(style);
             },
             style_chart_width: function() {
                 let style = this.width + 'px';
-                console.log("chart width: " + style);
+                console.debug("chart width: " + style);
                 return(style);
             }
         },
@@ -62,7 +72,7 @@
 
             height: function(newVal, oldVal)
             {
-                console.log("height updated: " + newVal + " to " + oldVal);
+                console.debug("height updated: " + newVal + " to " + oldVal);
                 this.height = newVal;
                 if(this.chart !== undefined) {
                     //this.chart.reflow();
@@ -71,7 +81,7 @@
             },
             width: function(newVal, oldVal)
             {
-                console.log("width updated: " + newVal + " to " + oldVal);
+                console.debug("width updated: " + newVal + " to " + oldVal);
                 this.width = newVal;
                 if(this.chart !== undefined) {
                     //this.chart.reflow();

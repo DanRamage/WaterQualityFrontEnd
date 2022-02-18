@@ -69,7 +69,11 @@
                                 :auto-pan="true"
                                 :auto-pan-animation="{ duration: 300 }">
                         <div>
+                            <div :is="getPopupComponent(feature)" v-bind:feature="feature"></div>
+                            <!---
                             <component :is="getPopupComponent(feature)" v-bind:feature="feature"></component>
+                            --->
+
                         </div>
                     </vl-overlay>
 
@@ -142,11 +146,11 @@
 
     import DataAPI from "../utilities/rest_api";
     import FeatureUtils from "../utilities/feature_funcs";
-    import WQPopup from "./wq_popup.vue";
-    import ShellfishPopup from "@/components/shellfish_popup";
-    import RipcurrentPopup from "@/components/riptide_popup";
-    import CameraPopup from "@/components/camera_popup";
-    import UnknownTypePopup from "@/components/default_popup"
+    //import WQPopup from "./wq_popup.vue";
+    //import ShellfishPopup from "@/components/shellfish_popup";
+    //import RipcurrentPopup from "@/components/riptide_popup";
+    //import CameraPopup from "@/components/camera_popup";
+    //import UnknownTypePopup from "@/components/default_popup"
     import {findPointOnSurface} from 'vuelayers/lib/ol-ext'
     //import moment from 'moment';
     import EventUtils from "../utilities/analytics_funcs";
@@ -173,11 +177,11 @@
         name: 'OLMapPage',
 
         components: {
-            CameraPopup,
-            RipcurrentPopup,
-            ShellfishPopup,
-            WQPopup,
-            UnknownTypePopup,
+            //CameraPopup,
+            //RipcurrentPopup,
+            //ShellfishPopup,
+            //WQPopup,
+            //UnknownTypePopup,
             IconsLegend
         },
         data () {
@@ -529,8 +533,18 @@
                 if(feature.properties.site_type == "Default")
                 {
                     EventUtils.log_event(this.$gtag, 'click', 'WQ Station', feature.properties.description, 0);
-                    return(WQPopup);
+                    this.$router.push({
+                      name: 'StationPage',
+                      params: {
+                        site_name: feature.properties.description,
+                        site_id: feature.id,
+                        graph_data: this.graph_data
+                      }
+                    });
+
+                  //return(WQPopup);
                 }
+                /*
                 else if(feature.properties.site_type == "Shellfish") {
                     EventUtils.log_event(this.$gtag, 'click', 'Shellfish Station', feature.properties.description, 0);
                     return(ShellfishPopup);
@@ -543,17 +557,18 @@
                     EventUtils.log_event(this.$gtag, 'click', 'Camera Site', feature.properties.description, 0);
                     return(CameraPopup);
                 }
-                return(UnknownTypePopup);
+                */
+                //return(UnknownTypePopup);
             }
         },
         computed: {
             featureStylingCompleted: function() {
                 if(this.features.length > 0 && (this.features_styled == this.features.length))
                 {
-                    console.log("featureStylingCompleted styled all features.");
+                    console.debug("featureStylingCompleted styled all features.");
                     return(true);
                 }
-                console.log("featureStylingCompleted styled: " + this.features_styled + " features.");
+                console.debug("featureStylingCompleted styled: " + this.features_styled + " features.");
                 return(false);
             }
         },

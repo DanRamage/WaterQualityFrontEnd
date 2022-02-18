@@ -5,6 +5,7 @@ import CameraGraph from '@/components/camera_graph'
 import ErrorPage from '@/components/error_page'
 import AboutPage from '@/components/about_page'
 import MyrtleBeachAboutPage from "@/components/MyrtleBeachAbout"
+import StationPage from '@/components/station_popup'
 
 const routes = [
         {
@@ -26,6 +27,12 @@ const routes = [
                     path: 'bacteriagraph/:site_id',
                     component: StationGraph,
                     name: 'StationGraph',
+                    props: true
+                },
+                {
+                    path: 'stationinfo/:site_id',
+                    component: StationPage,
+                    name: 'StationPage',
                     props: true
                 },
                 {

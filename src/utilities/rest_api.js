@@ -4,6 +4,8 @@ import axios from "axios";
 //let BASE_API_URL = 'http://127.0.0.1:5000/api/v1/';
 let BASE_API_URL = 'https://api.howsthebeach.org/api/v1/';
 let CAMERA_URL = "https://www.floridaapdata.org/beach/response_beach.php";
+let NWS_API_BASE_URL = "https://api.weather.gov";
+
 export default {
     GetSiteData(site_name, site, startdate, enddate) {
         console.log("GetSiteData started for site " + site_name + ' station '  +  site);
@@ -35,5 +37,15 @@ export default {
         return(axios.get(url, {headers: {'Content-Type': 'application/json'}}));
 
     },
+    GetNWSActiveAlerts(longitude, latitude)
+    {
+        console.log("GetNWSActiveAlerts started for longitude: " + longitude + " latitude: " + latitude);
+        let url = NWS_API_BASE_URL + '/alerts/active?' +
+            "point=" + latitude + "," + longitude
 
+        console.debug("GetNWSActiveAlerts POST url: " + url);
+        let alerts = axios.get(url, {headers: {'Content-Type': 'application/json'}});
+        return(alerts);
+
+    }
 }
