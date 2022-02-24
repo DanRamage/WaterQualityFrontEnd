@@ -1,10 +1,9 @@
 import axios from "axios";
 
 //let BASE_API_URL = 'http://howsthebeach.org/api/v1/';
-//let BASE_API_URL = 'http://127.0.0.1:5000/api/v1/';
-let BASE_API_URL = 'https://api.howsthebeach.org/api/v1/';
+let BASE_API_URL = 'http://127.0.0.1:5000/api/v1/';
+//let BASE_API_URL = 'https://api.howsthebeach.org/api/v1/';
 let CAMERA_URL = "https://www.floridaapdata.org/beach/response_beach.php";
-let NWS_API_BASE_URL = "https://api.weather.gov";
 
 export default {
     GetSiteData(site_name, site, startdate, enddate) {
@@ -37,15 +36,34 @@ export default {
         return(axios.get(url, {headers: {'Content-Type': 'application/json'}}));
 
     },
-    GetNWSActiveAlerts(longitude, latitude)
-    {
-        console.log("GetNWSActiveAlerts started for longitude: " + longitude + " latitude: " + latitude);
-        let url = NWS_API_BASE_URL + '/alerts/active?' +
-            "point=" + latitude + "," + longitude
+    GetWaterQualityProgramInfo(site_name, program_type) {
+        console.log("GetWaterQualityProgramInfo started for site: " + site_name + ".");
+        let url = BASE_API_URL + site_name + '/collectionprograminfo';
+        if(program_type !== undefined)
+        {
+            url = url + '?program_type=' + program_type
+        }
+        console.log("GetWaterQualityProgramInfo POST url: " + url);
+        let program_info_promise = axios.get(url, {headers: {'Content-Type': 'application/json'}})
+            .then(program_info=> {
+                let ret_val = []
+                if('data' in program_info) {
+                    if ('properties' in program_info.data) {
+                        if (program_type in program_info.data.properties.program) {
+                            ret_val = program_info.data.properties.program[program_type];
+                        }
+                    } else {
+                        ret_val = [];
+                    }
+                }
+                return(ret_val);
+            })
+            .catch(error=> {
+                console.error(error);
+                return [];
+            });
+        return program_info_promise;
 
-        console.debug("GetNWSActiveAlerts POST url: " + url);
-        let alerts = axios.get(url, {headers: {'Content-Type': 'application/json'}});
-        return(alerts);
 
     }
 }

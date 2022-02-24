@@ -145,11 +145,10 @@
               </div>
             </div>
           </div>
+          <CollectionProgramModal v-show="showBacteriaModal" @close-collection-modal="showBacteriaModal = false"/>
+          <!--
           <component :is="activeBacteriaModal" v-show="showBacteriaModal" @close-bacteria-modal="showBacteriaModal = false"/>
-          <!---
-        <SCDHECBacteriaPopup></SCDHECBacteriaPopup>
-        <NCBacteriaPopup></NCBacteriaPopup>
-          --->
+          -->
         </div>
       </div>
     </div>
@@ -170,7 +169,6 @@
 </template>
 
 <script>
-//import Vue from 'vue';
 import moment from 'moment';
 import FeatureUtils from "../utilities/feature_funcs";
 
@@ -187,12 +185,7 @@ import low_marker from '@/assets/images/low_marker_25x25.png';
 import high_marker from '@/assets/images/high_marker_25x25.png';
 
 import NowcastInfoModal from '@/components/nowcast_info_page';
-import SCDHECBacteriaPopup from "@/components/sc_dhec_bacteria_popup";
-import NCBacteriaPopup from '@/components/nc_dhec_bacteria_popup';
-
-//import {ModalPlugin} from 'bootstrap-vue';
-
-//Vue.use(ModalPlugin);
+import CollectionProgramModal from '@/components/collection_progam_page';
 
 export default {
   name: 'StationPage',
@@ -210,8 +203,7 @@ export default {
     WQPlot,
     NWSAlerts,
     NowcastInfoModal,
-    SCDHECBacteriaPopup,
-    NCBacteriaPopup
+    CollectionProgramModal
   },
   data() {
     return {

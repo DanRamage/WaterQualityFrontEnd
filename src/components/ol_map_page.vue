@@ -530,7 +530,7 @@
                     eventLabel: feature.properties.description
                 });*/
 
-                if(feature.properties.site_type == "Default")
+                if(feature.properties.site_type == "Water Quality")
                 {
                     EventUtils.log_event(this.$gtag, 'click', 'WQ Station', feature.properties.description, 0);
                     this.$router.push({

@@ -50,8 +50,22 @@ export default {
                 }
                 })
             .catch(error=> {
-                console.error(error);
-                return [];
+                let error_message = '';
+                let status_code = 404;
+                if('response' in error && error.response !== undefined) {
+                    status_code = error.response.status;
+                    if ('error' in error.response.data) {
+                        if ('message' in error.response.data.error) {
+                            error_message = error.response.data.error.message;
+                        }
+                    } else {
+                        error_message = error.response.data;
+                    }
+                    console.error("Status code: " + status_code +". Error Msg: " + error_message);
+                }
+                else{
+                    console.error(error);
+                }
             });
         return zones_promise;
     }
