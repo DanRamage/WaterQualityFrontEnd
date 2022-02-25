@@ -7,12 +7,13 @@
       <div class="ms-5" :class="text_color(rip_current_nws_event)">
         <a @click="show_rip_current_modal=true">{{rip_current_alert}} <i class="bi bi-info-circle info-icon"></i></a>
       </div>
-      <RipCurrentPopup ref="ripcurrent_modal"
-                       v-show="show_rip_current_modal"
-                       @close-nws-modal="show_rip_current_modal = false"
-                       :alert_description="rip_current_details" >
+      <NWSAlertPopup popup_id='ripcurrent_modal'
+                     program_type='NWS Rip Current'
+                     v-show="show_rip_current_modal"
+                     @close-nws-modal="show_rip_current_modal = false"
+                     :alert_description="rip_current_details" >
 
-      </RipCurrentPopup>
+      </NWSAlertPopup>
     </div>
     <div class="col-sm-3">
       <div>
@@ -21,12 +22,13 @@
       <div class="ms-5" :class="text_color(surf_alert)">
         <a @click="show_surf_alert_modal=true">{{surf_alert}} <i class="bi bi-info-circle info-icon"></i></a>
       </div>
-      <SurfAlertPopup ref="surfalert_modal"
-                       v-show="show_surf_alert_modal"
-                       @close-nws-modal="show_surf_alert_modal = false"
-                       :alert_description="surf_alert_details" >
+      <NWSAlertPopup popup_id="surfalert_modal"
+                              program_type="NWS Rip Current"
+                              v-show="show_surf_alert_modal"
+                             @close-nws-modal="show_surf_alert_modal = false"
+                             :alert_description="surf_alert_details" >
 
-      </SurfAlertPopup>
+      </NWSAlertPopup>
     </div>
 
   </div>
@@ -35,8 +37,9 @@
 
 <script>
   import NWSApi from "../utilities/nws_rest_api";
-  import RipCurrentPopup from "@/components/ripcurrent_alert_popup";
-  import SurfAlertPopup from "@/components/surf_alert_popup";
+  import NWSAlertPopup from "@/components/nws_alert_modal"
+  //import RipCurrentPopup from "@/components/ripcurrent_alert_popup";
+  //import SurfAlertPopup from "@/components/surf_alert_popup";
   //import InfoIcon from "../assets/icons/info-circle.svg";
 
   export default {
@@ -48,8 +51,7 @@
         'county_code': {type: String, default: undefined}
       },
     components: {
-      RipCurrentPopup,
-      SurfAlertPopup
+      NWSAlertPopup
     },
     data() {
       return {
@@ -67,6 +69,7 @@
     mounted() {
       let vm = this;
       console.debug("NWSAlertsPage mounted.");
+
       NWSApi.GetNWSZones({longitude: this.longitude, latitude: this.latitude}).then((zone_data)=>{
         zone_data;
         vm;

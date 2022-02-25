@@ -27,6 +27,7 @@
   export default {
     name: 'CollectionProgramModal',
     props: {
+      'program_type': {type: String, default: ""},
       'popup_id': {type: String, default: "collection_program_modal"},
     },
     data() {
@@ -40,7 +41,7 @@
       let vm = this;
       console.debug("CollectionProgramModal mounted.")
 
-      DataAPI.GetWaterQualityProgramInfo(this.$store.state.site_name, 'Water Quality')
+      DataAPI.GetWaterQualityProgramInfo(this.$store.state.site_name, this.program_type)
           .then(program_info_rec => {
             vm.collection_program_info = program_info_rec;
           })

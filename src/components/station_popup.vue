@@ -145,10 +145,7 @@
               </div>
             </div>
           </div>
-          <CollectionProgramModal v-show="showBacteriaModal" @close-collection-modal="showBacteriaModal = false"/>
-          <!--
-          <component :is="activeBacteriaModal" v-show="showBacteriaModal" @close-bacteria-modal="showBacteriaModal = false"/>
-          -->
+          <CollectionProgramModal program_type='Water Quality' v-show="showBacteriaModal" @close-collection-modal="showBacteriaModal = false"/>
         </div>
       </div>
     </div>
