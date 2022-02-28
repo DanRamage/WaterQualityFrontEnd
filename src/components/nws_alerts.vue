@@ -12,6 +12,7 @@
                      v-show="show_rip_current_modal"
                      @close-nws-modal="show_rip_current_modal = false"
                      :alert_description="rip_current_details" >
+                     :alert_headline="" >
 
       </NWSAlertPopup>
     </div>
@@ -26,7 +27,7 @@
                               program_type="NWS Rip Current"
                               v-show="show_surf_alert_modal"
                              @close-nws-modal="show_surf_alert_modal = false"
-                             :alert_description="surf_alert_details" >
+                             :alert_description="surf_alert_details">
 
       </NWSAlertPopup>
     </div>
@@ -36,11 +37,9 @@
 </template>
 
 <script>
-  import NWSApi from "../utilities/nws_rest_api";
+  import NWSApi from "@/utilities/nws_rest_api";
   import NWSAlertPopup from "@/components/nws_alert_modal"
-  //import RipCurrentPopup from "@/components/ripcurrent_alert_popup";
-  //import SurfAlertPopup from "@/components/surf_alert_popup";
-  //import InfoIcon from "../assets/icons/info-circle.svg";
+  import nws_alert from "@/utilities/nws_classes";
 
   export default {
     name: 'NWSAlertsPage',
@@ -63,8 +62,14 @@
         surf_alert_details: "No current alerts",
         nws_surf_event: "",
         show_rip_current_modal: false,
-        show_surf_alert_modal: false
+        show_surf_alert_modal: false,
+        rip_current_record: undefined,
+        nws_alerts: []
+
       }
+    },
+    created() {
+      this.rip_current_record = new nws_alert();
     },
     mounted() {
       let vm = this;
@@ -83,10 +88,15 @@
 
         let rip_current_found = false;
         for(var i = 0; i < alerts.length; i++) {
-           let feature = alerts[i];
+          let feature = alerts[i];
+          let alert = new nws_alert();
+          alert.parse_api_response(feature);
+           vm.nws_alerts[feature.properties.event] = alert;
            if(feature.properties.event == 'Rip Current Statement')
            {
+             //vm.rip_current_record.parse_api_response(feature);
              vm.rip_current_alert = 'Rip Currents Present'
+             vm.rip_current_record = feature;
              vm.rip_current_nws_event = feature.properties.event;
              vm.rip_current_details = feature.properties.description;
              rip_current_found = true
@@ -150,6 +160,7 @@
       }
     },
     computed: {
+
       rip_currents_text_color: function () {
         if (this.rip_current_alert == "No Alerts") {
           return ("alert");

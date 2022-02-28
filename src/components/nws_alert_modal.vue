@@ -16,6 +16,9 @@
           </p>
           <div class="fs-4">Current Alert Description</div>
           <p>
+            {{alert_headline}}
+          </p>
+          <p>
             {{alert_description}}
           </p>
         </div>
@@ -34,7 +37,8 @@ export default {
   props: {
     'modal_id': {type: String, default: 'nws-alert-id'},
     'program_type': {type: String, default: ''},
-    'alert_description': {type: String, default: 'No current alerts.'}
+    'alert_description': {type: String, default: 'No current alerts.'},
+    'alert_headline': {type: String, default: 'No current alerts.'}
   },
   components: {
     //BaseAlertPopup
