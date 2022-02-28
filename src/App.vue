@@ -11,7 +11,8 @@
     import CameraGraph from "@/components/camera_graph";
     import ErrorPage from "@/components/error_page";
     import AboutPage from "@/components/about_page";
-    import MyrtleBeachAboutPage from "@/components/MyrtleBeachAbout"
+    import MyrtleBeachAboutPage from "@/components/MyrtleBeachAbout";
+    import ShellfishPage from "@/components/shellfish_page";
 
     export default {
       data() {
@@ -44,6 +45,14 @@
                   this.$store.commit('updateStationName', to.params.site_id);
                   this.activeComponent = 'StationPage';
                 }
+                else if(to.name == 'ShellfishPage')
+                {
+                  //Pick apart the path and save the site name into the store so other components can use it for
+                  //API requests.
+                  this.$store.commit('updateSiteName', to.params.location);
+                  this.$store.commit('updateStationName', to.params.site_id);
+                  this.activeComponent = 'ShellfishPage';
+                }
                 else if (to.name == 'AboutPage') {
                   this.activeComponent = 'AboutPage';
                 }
@@ -52,7 +61,15 @@
                 }
             }
         },
-        components: {OLMapPage, SplashPage, StationGraph, StationPage, CameraGraph, ErrorPage, AboutPage, MyrtleBeachAboutPage},
+        components: {OLMapPage,
+          SplashPage,
+          StationGraph,
+          StationPage,
+          CameraGraph,
+          ErrorPage,
+          AboutPage,
+          ShellfishPage,
+          MyrtleBeachAboutPage},
         created() {
             //We check the url we receive to see where we are going, splash page or one of the project sites.
             let to = this.$route;
@@ -62,42 +79,6 @@
                 page_path: to.path,
             });
             this.find_component(to);
-            /*
-            if(to.name == 'OLMapPage')
-            {
-                //Pick apart the path and save the site name into the store so other components can use it for
-                //API requests.
-                this.$store.commit('updateSiteName', to.params.location);
-                this.activeComponent = 'OLMapPage';
-            }
-            else if(to.name == 'SplashPage')
-            {
-                this.activeComponent = 'SplashPage';
-            }
-            else if(to.name == 'StationGraph')
-            {
-                //Pick apart the path and save the site name into the store so other components can use it for
-                //API requests.
-                this.$store.commit('updateSiteName', to.params.location);
-                this.activeComponent = 'StationGraph';
-            }
-            else if(to.name == 'StationPage')
-            {
-              //Pick apart the path and save the site name into the store so other components can use it for
-              //API requests.
-              this.$store.commit('updateSiteName', to.params.location);
-              this.$store.commit('updateStationName', to.params.site_id);
-              this.activeComponent = 'StationPage';
-            }
-            else if(to.name == 'AboutPage')
-            {
-                this.activeComponent = 'AboutPage';
-            }
-            else if(to.name == 'MyrtleBeachAboutPage')
-            {
-                this.activeComponent = 'MyrtleBeachAboutPage';
-            }
-            */
         },
         watch: {
             '$route' (to, from) {
@@ -106,53 +87,6 @@
                     page_path: to.path,
                 });
                 this.find_component(to);
-                /*
-                if(to.name == 'OLMapPage')
-                {
-                    //Pick apart the path and save the site name into the store so other components can use it for
-                    //API requests.
-                    this.$store.commit('updateSiteName', to.params.location);
-                    this.activeComponent = 'OLMapPage';
-                }
-                else if(to.name == 'StationGraph')
-                {
-                    //Pick apart the path and save the site name into the store so other components can use it for
-                    //API requests.
-                    this.$store.commit('updateSiteName', to.params.location);
-                    this.activeComponent = 'StationGraph';
-                }
-                else if(to.name == 'StationPage')
-                {
-                  //Pick apart the path and save the site name into the store so other components can use it for
-                  //API requests.
-                  this.$store.commit('updateSiteName', to.params.location);
-                  this.activeComponent = 'StationPage';
-                }
-
-                else if(to.name == 'CameraGraph')
-                {
-                    //Pick apart the path and save the site name into the store so other components can use it for
-                    //API requests.
-                    this.$store.commit('updateSiteName', to.params.location);
-                    this.activeComponent = 'CameraGraph';
-                }
-                else if(to.name == '404')
-                {
-                    this.activeComponent = 'ErrorPage';
-                }
-                else if(to.name == 'AboutPage')
-                {
-                    this.activeComponent = 'AboutPage';
-                }
-                else if(to.name == 'SplashPage')
-                {
-                    this.activeComponent = 'SplashPage';
-                }
-                else if(to.name == 'MyrtleBeachAboutPage')
-                {
-                    this.activeComponent = 'MyrtleBeachAboutPage';
-                }
-                */
             }
         },
 

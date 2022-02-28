@@ -2,8 +2,8 @@
   <div class="montserat-font container page-background data-graph">
     <div class="row">
       <div class="col">
-        <div class="font-avenir">
-          <h1>Site: {{ site_description }}</h1>
+        <div class="font-avenir fs-5">
+          Site: {{ site_description }}
         </div>
       </div>
     </div>
@@ -18,7 +18,7 @@
             <vl-view :zoom.sync="zoom" :center.sync="center" :rotation.sync="rotation"></vl-view>
             <vl-layer-tile>
               <vl-source-xyz url="https://mt0.google.com/vt/lyrs=m&hl=en&x={x}&y={y}&z={z}"
-                             attributions="string or array"/>
+                             attributions=""/>
             </vl-layer-tile>
             <vl-layer-vector id="site">
               <vl-source-vector ref="site_vector_layer" :features.sync="site_feature"></vl-source-vector>
@@ -28,8 +28,8 @@
 
         </div>
       </div>
-      <div class="col-sm-4 ml-4">
-        <h4>Blurb about the site or data collection goes here.</h4>
+      <div class="col-sm-4 ml-4 fs-6">
+        Blurb about the site or data collection goes here.
       </div>
     </div>
     <!---

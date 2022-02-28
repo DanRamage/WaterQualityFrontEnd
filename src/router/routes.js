@@ -6,6 +6,7 @@ import ErrorPage from '@/components/error_page'
 import AboutPage from '@/components/about_page'
 import MyrtleBeachAboutPage from "@/components/MyrtleBeachAbout"
 import StationPage from '@/components/station_popup'
+import ShellfishPage from '@/components/shellfish_page'
 
 const routes = [
         {
@@ -33,6 +34,12 @@ const routes = [
                     path: 'stationinfo/:site_id',
                     component: StationPage,
                     name: 'StationPage',
+                    props: true
+                },
+                {
+                    path: 'shellfishinfo/:site_id',
+                    component: ShellfishPage,
+                    name: 'ShellfishPage',
                     props: true
                 },
                 {

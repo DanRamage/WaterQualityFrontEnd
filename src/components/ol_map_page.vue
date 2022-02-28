@@ -326,7 +326,7 @@
                         src: NoneMarkerIcon,
                         scale: icon_scale
                     });
-                    if(site_type == 'Default')
+                    if(site_type == 'Water Quality')
                     {
                         try
                         {
@@ -531,10 +531,17 @@
                 });*/
 
                 if(feature.properties.site_type == "Water Quality")
+                    //feature.properties.site_type == "Shellfish")
                 {
+                    let name = 'StationPage';
+                    //if(feature.properties.site_type == "Shellfish") {
+                    //  name = 'ShellfishPage';
+                    //}
+
+
                     EventUtils.log_event(this.$gtag, 'click', 'WQ Station', feature.properties.description, 0);
                     this.$router.push({
-                      name: 'StationPage',
+                      name: name,
                       params: {
                         site_name: feature.properties.description,
                         site_id: feature.id,
@@ -543,6 +550,19 @@
                     });
 
                   //return(WQPopup);
+                }
+
+                else if(feature.properties.site_type == "Shellfish") {
+                  EventUtils.log_event(this.$gtag, 'click', 'Shellfish Station', feature.properties.description, 0);
+                  this.$router.push({
+                    name: 'ShellfishPage',
+                    params: {
+                      site_name: feature.properties.description,
+                      site_id: feature.id,
+                      program_type: "Shellfish Monitoring"
+                    }
+                  });
+
                 }
                 /*
                 else if(feature.properties.site_type == "Shellfish") {
