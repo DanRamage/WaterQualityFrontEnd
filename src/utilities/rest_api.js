@@ -1,8 +1,8 @@
 import axios from "axios";
 
 //let BASE_API_URL = 'http://howsthebeach.org/api/v1/';
-//let BASE_API_URL = 'http://127.0.0.1:5000/api/v1/';
-let BASE_API_URL = 'https://devapi.howsthebeach.org/api/v1/';
+let BASE_API_URL = 'http://127.0.0.1:5000/api/v1/';
+//let BASE_API_URL = 'https://devapi.howsthebeach.org/api/v1/';
 let CAMERA_URL = "https://www.floridaapdata.org/beach/response_beach.php";
 
 export default {
@@ -15,9 +15,13 @@ export default {
         return(axios.get(url, {headers: {'Content-Type': 'application/json'}}));
 
     },
-    GetSitesPromise(site_name) {
+    GetSitesPromise(site_name, station) {
         console.log("GetSites started for site " + site_name);
         let url = BASE_API_URL + site_name + "/sites";
+        if(station.length)
+        {
+            url = url + '?site=' + station;
+        }
         console.log("GetSites started POST url: " + url);
         return axios.get(url, {headers: {'Content-Type': 'application/json'}});
             //.then(res => res.data)

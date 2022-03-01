@@ -50,7 +50,7 @@
                   //Pick apart the path and save the site name into the store so other components can use it for
                   //API requests.
                   this.$store.commit('updateSiteName', to.params.location);
-                  this.$store.commit('updateStationName', to.params.site_id);
+                  this.$store.commit('updateStationName', to.params.p_site_id);
                   this.activeComponent = 'ShellfishPage';
                 }
                 else if (to.name == 'AboutPage') {
@@ -74,7 +74,7 @@
             //We check the url we receive to see where we are going, splash page or one of the project sites.
             let to = this.$route;
 
-            console.log("Initial url: " + to.path);
+            console.debug("Initial url: " + to.path);
             this.$gtag.pageview({
                 page_path: to.path,
             });
@@ -82,7 +82,7 @@
         },
         watch: {
             '$route' (to, from) {
-                console.log('Route changed from ' + from.path + ' to ' + to.path);
+                console.debug('Route changed from ' + from.path + ' to ' + to.path);
                 this.$gtag.pageview({
                     page_path: to.path,
                 });
@@ -153,4 +153,17 @@
       /*I create the Data URI because I could not get the .svg to work. I think because the data type was defaulting to HTML and not svg+xml*/
       content: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0iY3VycmVudENvbG9yIiBjbGFzcz0iYmkgYmktaW5mby1jaXJjbGUiIHZpZXdCb3g9IjAgMCAxNiAxNiI+CiAgPHBhdGggZD0iTTggMTVBNyA3IDAgMSAxIDggMWE3IDcgMCAwIDEgMCAxNHptMCAxQTggOCAwIDEgMCA4IDBhOCA4IDAgMCAwIDAgMTZ6Ii8+CiAgPHBhdGggZD0ibTguOTMgNi41ODgtMi4yOS4yODctLjA4Mi4zOC40NS4wODNjLjI5NC4wNy4zNTIuMTc2LjI4OC40NjlsLS43MzggMy40NjhjLS4xOTQuODk3LjEwNSAxLjMxOS44MDggMS4zMTkuNTQ1IDAgMS4xNzgtLjI1MiAxLjQ2NS0uNTk4bC4wODgtLjQxNmMtLjIuMTc2LS40OTIuMjQ2LS42ODYuMjQ2LS4yNzUgMC0uMzc1LS4xOTMtLjMwNC0uNTMzTDguOTMgNi41ODh6TTkgNC41YTEgMSAwIDEgMS0yIDAgMSAxIDAgMCAxIDIgMHoiLz4KPC9zdmc+Cg==");
     }
+    .warning {
+      color: red;
+    }
+    .advisory {
+      color: orangered;
+    }
+    .watch {
+      color: yellow;
+    }
+    .no_alert {
+      color: green;
+    }
+
 </style>

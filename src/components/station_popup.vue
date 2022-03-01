@@ -372,7 +372,7 @@ export default {
       this.site_name = this.$store.state.site_name;
       this.site_id = this.$store.state.station_name;
       //If we navigate directly to this station, we'll need to go get data.
-      DataAPI.GetSitesPromise(this.site_name, '').then(features => {
+      DataAPI.GetSitesPromise(this.site_name, this.site_id).then(features => {
         console.debug("Retrieved: " + features.data.sites.features.length + " features");
         vm.features = features.data.sites.features;
         for (const ndx in vm.features) {

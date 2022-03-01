@@ -37,7 +37,7 @@ const routes = [
                     props: true
                 },
                 {
-                    path: 'shellfishinfo/:site_id',
+                    path: 'shellfishinfo/:p_site_id',
                     component: ShellfishPage,
                     name: 'ShellfishPage',
                     props: true

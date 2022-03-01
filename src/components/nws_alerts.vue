@@ -179,18 +179,6 @@
   }
 </script>
 <style scoped>
-  .warning {
-    color: red;
-  }
-  .advisory {
-    color: orangered;
-  }
-  .watch {
-    color: yellow;
-  }
-  .no_alert {
-    color: green;
-  }
   .info-icon {
     fill: red;
   }

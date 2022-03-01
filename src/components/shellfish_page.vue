@@ -3,13 +3,13 @@
     <div class="row">
       <div class="col">
         <div class="font-avenir fs-5">
-          Site: {{ site_description }}
+          Shellfish Site: {{ site_id }}
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-3">
-        <div v-if="feature !== undefined" style="height: 250px; width: 250px">
+        <div v-if="site_feature.length" style="height: 250px; width: 250px">
           <vl-map id="single_site_map"
                   ref="single_site_map"
                   :load-tiles-while-animating="true"
@@ -22,7 +22,7 @@
             </vl-layer-tile>
             <vl-layer-vector id="site">
               <vl-source-vector ref="site_vector_layer" :features.sync="site_feature"></vl-source-vector>
-              <vl-style-func :factory="styleFunction"></vl-style-func>
+              <vl-style-func :factory="siteStyleFactory"></vl-style-func>
             </vl-layer-vector>
           </vl-map>
 
@@ -40,6 +40,12 @@
     <div class="row gy-0">
       <div class="col-12">
         <hr>
+        <div>
+          Site: <span :class="text_color(advisory)">{{advisory}}</span>
+        </div>
+        <div>
+          Last Data Check: {{lastCheckedDate}}
+        </div>
         <div class="row">
         </div>
       </div>
@@ -49,7 +55,7 @@
         <hr>
         <div class="fs-6">Alerts</div>
 
-        <div v-if="site_feature !== undefined">
+        <div v-if="site_feature.length">
           <NWSAlerts :latitude="site_latitude"
                      :longitude="site_longitude">
 
@@ -66,16 +72,24 @@
 import DataAPI from "../utilities/rest_api";
 
 import NWSAlerts from "@/components/nws_alerts";
+import NoneMarkerIcon from "@/assets/images/none_marker_25x25.png";
+import FeatureUtils from "@/utilities/feature_funcs";
+import ShellfishLowMarkerIcon from "@/assets/images/shellfish_low_marker_25x25.png";
+import ShellfishHiMarkerIcon from "@/assets/images/shellfish_high_marker_25x25.png";
+import ShellfishNoneMarkerIcon from "@/assets/images/shellfish_none_marker_25x25.png";
+import Style from 'ol/style/Style';
+import Icon from 'ol/style/Icon';
+import moment from "moment";
 
 
 
 export default {
   name: 'ShellfishPage',
   props: {
-    'feature': {type: Object, default: undefined},
-    'site_name': {type: String, default: undefined},
-    'site_id': {type: String, default: undefined}
-    //'program_type': {type: String, default: ''},
+    'p_feature': {type: Object, default: undefined},
+    'p_site_name': {type: String, default: undefined},
+    'p_site_id': {type: String, default: undefined},
+    'p_program_type': {type: String, default: undefined},
   },
   components: {
     NWSAlerts
@@ -86,70 +100,170 @@ export default {
       program_type: "Shellfish Monitoring",
       zoom: 15,
       center: [0, 0],
-      rotation: 0
-
+      rotation: 0,
+      /*These can be passed as props, or the user could bookmark this page and go directly to it, in which case we
+      query the data.*/
+      internal_feature: undefined,
+      internal_site_name: undefined,
+      internal_site_id: undefined
     }
   },
   mounted() {
     let vm = this;
     console.debug("ShellfishPage mounted.");
+    if(this.p_program_type !== undefined) {
+      this.program_type = this.p_program_type;
+    }
     DataAPI.GetWaterQualityProgramInfo(this.$store.state.site_name, this.program_type)
         .then(program_info_rec => {
           vm.collection_program_info = program_info_rec;
         })
 
-    if (this.site_name === undefined) {
-      this.site_name = this.$store.state.site_name;
-      this.site_id = this.$store.state.station_name;
-      DataAPI.GetSitesPromise(this.site_name, '').then(features => {
+    if (this.p_site_name === undefined) {
+      this.internal_site_name = this.$store.state.site_name;
+      this.internal_site_id = this.$store.state.station_name;
+      DataAPI.GetSitesPromise(this.internal_site_name, this.internal_site_id).then(features => {
         console.debug("Retrieved: " + features.data.sites.features.length + " features");
-        vm.features = features.data.sites.features;
-        for (const ndx in vm.features) {
-          let site = vm.features[ndx];
-          if (vm.site_id == site.properties.site_name) {
-            vm.feature = site;
-            vm.center = vm.feature.geometry.coordinates;
+        for (const ndx in features.data.sites.features) {
+          let site = features.data.sites.features[ndx];
+          if (vm.internal_site_id == site.properties.site_name) {
+            vm.internal_feature = site;
+            vm.center = vm.internal_feature.geometry.coordinates;
             break;
           }
         }
       });
 
     }
+    else {
+      this.internal_feature = this.p_feature;
+    }
   },
   methods: {
-    isDataFresh: function (data_type) {
-      data_type;
-      /*if (this.feature) {
-        let properties = this.feature.properties;
-        let site_type = this.feature.properties.site_type;
-      }*/
+    siteStyleFactory: function() {
+      console.debug("siteStyleFactory started");
+      /*
+      For each feature, this function is used to determine what icon to use based on the level.
+      */
+      var siteStyleFunction = function(feature, resolution) {
+        resolution;
+        let icon_scale = 0.75;
+        let properties = feature.getProperties();
+        let site_type = properties.site_type;
+        let icon = new Icon({
+          src: NoneMarkerIcon,
+          scale: icon_scale
+        });
+        if(site_type == 'Shellfish')
+        {
+          try
+          {
+            if (site_type in properties) {
+              //First check to see if our data is still fresh.
+              let dataFresh = FeatureUtils.isDataFresh(properties[site_type].advisory);
+              if (dataFresh) {
+                //Shellfish values are either true for closed or false for open.
+                let value = properties[site_type].advisory.value;
+                if (!value) {
+                  icon = new Icon({
+                    src: ShellfishLowMarkerIcon,
+                    scale: icon_scale
+                  });
+                } else {
+                  icon = new Icon({
+                    src: ShellfishHiMarkerIcon,
+                    scale: icon_scale
+                  });
+                }
+              } else {
+                icon = new Icon({
+                  src: ShellfishNoneMarkerIcon,
+                  scale: icon_scale
+                });
+              }
+            }
+          }
+          catch(error)
+          {
+            icon = new Icon({
+              src: ShellfishNoneMarkerIcon,
+              scale: icon_scale
+            });
+            console.error(error);
+          }
+        }
+        let icon_style = [
+          new Style({
+            image: icon,
+          })
+        ];
+        return(icon_style);
+      };
+      return siteStyleFunction;
     },
+
     onClose() {
+    },
+    text_color: function(level) {
+      let text_color = '';
+      if(level == "OPEN")
+      {
+        text_color = 'no_alert';
+      }
+      else
+      {
+        text_color = 'warning';
+      }
+      return text_color;
     }
   },
   watch: {},
   computed: {
+    site_name: function() {
+      let name = "";
+      if(this.p_site_name !== undefined)
+      {
+        name = this.p_site_name;
+      }
+      else if(this.internal_site_name !== undefined)
+      {
+        name = this.internal_site_name;
+      }
+      return(name);
+    },
+    site_id: function() {
+      let id = "";
+      if(this.p_site_id !== undefined)
+      {
+        id = this.p_site_id;
+      }
+      else if(this.internal_site_id !== undefined)
+      {
+        id = this.internal_site_id;
+      }
+      return(id);
+    },
     site_longitude: function () {
-      if (this.feature !== undefined) {
-        return (this.feature.geometry.coordinates[0])
+      if (this.internal_feature !== undefined) {
+        return (this.internal_feature.geometry.coordinates[0])
       }
       return (-1.0);
     },
     site_latitude: function () {
-      if (this.feature !== undefined) {
-        return (this.feature.geometry.coordinates[1])
+      if (this.internal_feature !== undefined) {
+        return (this.internal_feature.geometry.coordinates[1])
       }
       return (-1.0);
     },
     site_feature: function () {
-      if (this.feature !== undefined) {
-        return ([this.feature]);
+      if (this.internal_feature !== undefined) {
+        return ([this.internal_feature]);
       }
-      return (undefined);
+      return ([]);
     },
     site_description: function () {
-      if (this.feature !== undefined) {
-        return (this.feature.properties.description);
+      if (this.internal_feature !== undefined) {
+        return (this.internal_feature.properties.description);
       }
       return ("");
     },
@@ -173,7 +287,55 @@ export default {
         url = this.collection_program_info.url;
       }
       return(url);
+    },
+    region_name: function() {
+      console.debug("regionName started.");
+      if(this.internal_feature !== undefined) {
+        let site_type = this.internal_feature.properties.site_type;
+        if (site_type in this.internal_feature.properties) {
+          return (this.internal_feature.properties[site_type].region)
+        }
+      }
+      return("")
+    },
+    advisory: function() {
+      console.debug("hasAdvisory started.");
+      if (this.internal_feature !== undefined) {
+
+        let site_type = this.internal_feature.properties.site_type;
+        if (site_type in this.internal_feature.properties) {
+          if ('advisory' in this.internal_feature.properties[site_type]) {
+            if (!this.internal_feature.properties[site_type].advisory.value) {
+              return ("OPEN");
+            } else {
+              return ("CLOSED");
+            }
+          }
+        }
+      }
+      return("Data unavailable");
+    },
+    lastCheckedDate: function() {
+      console.debug("lastCheckedDate started.");
+      if (this.internal_feature !== undefined) {
+
+        let site_type = this.internal_feature.properties.site_type;
+        if (site_type in this.internal_feature.properties) {
+          var date = moment(this.internal_feature.properties[site_type].advisory.date).format("MMMM Do YYYY hh:mm a");
+          return (date);
+        }
+      }
+      return("");
+    },
+    isDataFresh: function() {
+      if (this.internal_feature !== undefined) {
+        let properties = this.internal_feature.properties;
+        let site_type = this.internal_feature.properties.site_type;
+        return (FeatureUtils.isDataFresh(properties[site_type].advisory));
+      }
+      return(false);
     }
+
 
   }
 }

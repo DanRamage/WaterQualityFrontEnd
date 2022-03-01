@@ -169,9 +169,6 @@
     import ShellfishLowMarkerIcon from '@/assets/images/shellfish_low_marker_25x25.png'
     import ShellfishHiMarkerIcon from '@/assets/images/shellfish_high_marker_25x25.png'
     import ShellfishNoneMarkerIcon from '@/assets/images/shellfish_none_marker_25x25.png'
-    import RipCurrentLowMarkerIcon from '@/assets/images/ripcurrent_low_marker_25x25.png'
-    import RipCurrentHiMarkerIcon from '@/assets/images/ripcurrent_high_marker_25x25.png'
-    import RipCurrentNoneMarkerIcon from '@/assets/images/ripcurrent_none_marker_25x25.png'
 
     export default {
         name: 'OLMapPage',
@@ -429,43 +426,6 @@
                           vm.legend_icons.push("Shellfish");
                         }
                     }
-                    else if(site_type == 'Rip Current')
-                    {
-                        try
-                        {
-                            let dataFresh = FeatureUtils.isDataFresh(properties[site_type].advisory);
-                            if (dataFresh) {
-                              let value = properties[site_type].advisory.value;
-                              if (value == 'LOW') {
-                                icon = new Icon({
-                                  src: RipCurrentLowMarkerIcon,
-                                  scale: icon_scale
-                                });
-                              } else {
-                                icon = new Icon({
-                                  src: RipCurrentHiMarkerIcon,
-                                  scale: icon_scale
-                                });
-                              }
-                            } else {
-                              icon = new Icon({
-                                src: RipCurrentNoneMarkerIcon,
-                                scale: icon_scale
-                              });
-                            }
-                        }
-                        catch(error)
-                        {
-                            icon = new Icon({
-                              src: RipCurrentNoneMarkerIcon,
-                              scale: icon_scale
-                            });
-                            console.error(error);
-                        }
-                        if (!(vm.legend_icons.includes('Rip Current'))) {
-                          vm.legend_icons.push("Rip Current");
-                        }
-                    }
                     else if(site_type == 'Camera Site') {
                         icon = new Icon({
                             src: CameraIcon,
@@ -531,14 +491,8 @@
                 });*/
 
                 if(feature.properties.site_type == "Water Quality")
-                    //feature.properties.site_type == "Shellfish")
                 {
                     let name = 'StationPage';
-                    //if(feature.properties.site_type == "Shellfish") {
-                    //  name = 'ShellfishPage';
-                    //}
-
-
                     EventUtils.log_event(this.$gtag, 'click', 'WQ Station', feature.properties.description, 0);
                     this.$router.push({
                       name: name,
@@ -557,9 +511,9 @@
                   this.$router.push({
                     name: 'ShellfishPage',
                     params: {
-                      site_name: feature.properties.description,
-                      site_id: feature.id,
-                      program_type: "Shellfish Monitoring"
+                      p_site_name: feature.properties.description,
+                      p_site_id: feature.id,
+                      p_program_type: "Shellfish Monitoring"
                     }
                   });
 
