@@ -46,14 +46,14 @@
             </div>
             <b-collapse id="collapse-1" class="mt-1">
                 <b-card>
-                    <p class="card-text text-blue avenir-font">
+                    <p class="card-text text-blue avenir-font  fs-5">
                         How’s the Beach is tool that predicts bacterial conditions in public waters at four
                         locations on the east coast of America. It is designed to inform the public of unsafe swimming
                         conditions. How’s the Beach is a joint initiative of University of South Carolina,
                         Southeast Coastal Ocean Observing Regional Association, and the Integration and Application
                         Network at the University of Maryland Center for Environmental Science.
                     </p>
-                    <h3 class="card-text text-blue avenir-font">Project Partners</h3>
+                    <div class="card-text text-blue avenir-font fs-5">Project Partners</div>
                     <div>
                         <div class="row align-items-center">
                             <div class="col-3">
@@ -83,10 +83,7 @@
             </div>
             <b-collapse id="collapse-2" class="mt-1">
                 <b-card>
-                    <p class="card-text text-blue avenir-font">
-                        Enterococci.
-                    </p>
-                    <p class="card-text text-blue avenir-font">
+                    <p class="card-text text-blue avenir-font fs-5">
                         Enterococci are bacteria that normally inhabit the intestinal tract of humans and animals.
                         The presence of these bacteria can be an indication of fecal pollution, which may come from
                         stormwater runoff, pets and wildlife, and human sewage. If they are present in high
@@ -104,7 +101,7 @@
             </div>
             <b-collapse id="collapse-3" class="mt-1">
                 <b-card>
-                    <p class="card-text text-blue avenir-font">
+                    <p class="card-text text-blue avenir-font fs-5">
                         Bacteria levels can change very rapidly between sampling dates. To fill in the gaps,
                         we make daily predictions of bacteria conditions. These predictions do not represent
                         swimming advisories, but provide estimates of the likelihood that bacteria conditions
@@ -130,11 +127,23 @@
             </div>
             <b-collapse id="collapse-4" class="mt-1">
                 <b-card>
-                    <p class="card-text text-blue avenir-font-light">
-                        <a href="mailto: howsmybeach@gmail.com"><h2>Email us!</h2></a>
-                    </p>
+                    <div class="card-text text-blue avenir-font-light fs-3">
+                        <a href="mailto: howsmybeach@gmail.com">Email us!</a>
+                    </div>
                 </b-card>
             </b-collapse>
+          <div v-b-toggle.collapse-5 variant="outline-primary" class="text-blue avenir-font-light mt-4">
+            <span class="FAQ-text mr-4 font-weight-normal">API Reference</span>
+            <span class="whatis-opened FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-up']" /></span>
+            <span class="whatis-closed FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-right']" /></span>
+          </div>
+          <b-collapse id="collapse-5" class="mt-1">
+            <b-card>
+              <div class="card-text text-blue avenir-font-light fs-5">
+                Access data via the API. Reference docs can be found <a href="https://devapi.howsthebeach.org/api/v1/docs" target="_blank">here.</a>
+              </div>
+            </b-card>
+          </b-collapse>
         </div>
     </div>
 </template>

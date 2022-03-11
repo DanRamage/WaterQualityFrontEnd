@@ -1,9 +1,10 @@
 <template>
-  <div class="montserat-font container page-background">
+  <div class="montserat-font container page-background data-graph">
     <div class="row">
       <div class="col">
         <div class="font-avenir fs-5">
-          Shellfish Site: {{ site_id }}
+          <div>Shellfish Site: {{ site_description }}</div>
+          <div>Site ID: {{ site_id }}</div>
         </div>
       </div>
     </div>
@@ -350,4 +351,8 @@ export default {
   background-color: #FFFFFF;
   /*background-color: #003D7ED8;*/
 }
+.data-graph {
+  color: #003D7ED8
+}
+
 </style>

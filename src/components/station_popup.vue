@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col">
         <div class="font-avenir fs-5">
-          Site: {{ site_description }}
+          <div>Water Quality Site: {{ site_description }}</div>
+          <div>Site ID: {{ site_id }}</div>
         </div>
       </div>
     </div>
@@ -45,7 +46,7 @@
                 <a @click="clickNowCastInfo">Nowcast <i class="bi bi-info-circle info-icon"></i></a>
               </div>
               <p>
-                <span class="ms-5 fs-6">Nowcast for {{ nowcastsDate }}: {{ nowcastsValue }}</span>
+                <span class="ms-5 fs-6">Nowcast for {{ nowcastsDate }}: <span :class="alert_text_color(nowcastsValue)"> {{ nowcastsValue }}</span></span>
                 <br>
                 <span class="ml-4 avenir-font-light"></span>
                 <br>
@@ -71,7 +72,7 @@
           <div v-if="hasAdvisoryData" class="row">
             <div class="col-sm-4">
               <div class="ms-5 fs-6">
-                Bacteria Data for {{ advisoryDate }}: {{ advisoryValue }}
+                Bacteria Data for {{ advisoryDate }}: <span :class="alert_text_color(advisoryValue)">{{ advisoryValue }}</span>
               </div>
               <div class="ms-5 fs-6">
                 <b v-if='isDataFresh("advisory") == false' class="avenir-font-light text-danger">RESULTS ARE OUT OF
@@ -372,7 +373,7 @@ export default {
       this.site_name = this.$store.state.site_name;
       this.site_id = this.$store.state.station_name;
       //If we navigate directly to this station, we'll need to go get data.
-      DataAPI.GetSitesPromise(this.site_name, this.site_id).then(features => {
+      DataAPI.GetSitesPromise(this.site_name, this.site_id, true, true).then(features => {
         console.debug("Retrieved: " + features.data.sites.features.length + " features");
         vm.features = features.data.sites.features;
         for (const ndx in vm.features) {
@@ -558,8 +559,21 @@ export default {
     clickNowCastInfo() {
       this.showNowCastModal = true;
       console.debug("clickNowCastInfo clicked.");
+    },
+    alert_text_color: function(level) {
+      let text_color = '';
+      if(level == "LOW")
+      {
+        text_color = 'no_alert';
+      }
+      else
+      {
+        text_color = 'warning';
+      }
+      return text_color;
     }
   },
+
   watch: {},
   computed: {
     site_longitude: function () {

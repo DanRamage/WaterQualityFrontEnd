@@ -1,29 +1,39 @@
 import axios from "axios";
 
 //let BASE_API_URL = 'http://howsthebeach.org/api/v1/';
-let BASE_API_URL = 'http://127.0.0.1:5000/api/v1/';
-//let BASE_API_URL = 'https://devapi.howsthebeach.org/api/v1/';
+//let BASE_API_URL = 'http://127.0.0.1:5000/api/v1/';
+let BASE_API_URL = 'https://devapi.howsthebeach.org/api/v1/';
 let CAMERA_URL = "https://www.floridaapdata.org/beach/response_beach.php";
 
 export default {
     GetSiteData(site_name, site, startdate, enddate) {
         console.log("GetSiteData started for site " + site_name + ' station '  +  site);
-        let url = BASE_API_URL + site_name + '/' + site + '/bacteria' +
-             '?startdate=' + startdate +
-             '&enddate=' + enddate;
-        console.log("GetSiteData POST url:" + url);
-        return(axios.get(url, {headers: {'Content-Type': 'application/json'}}));
+        let base_url = BASE_API_URL + site_name + '/' + site + '/bacteria'
+        let url = new URL(base_url);
+        url.searchParams.append("startdate", startdate)
+        url.searchParams.append("enddate", enddate)
+        console.log("GetSiteData POST url:" + url.href);
+        return(axios.get(url.href, {headers: {'Content-Type': 'application/json'}}));
 
     },
-    GetSitesPromise(site_name, station) {
+    GetSitesPromise(site_name, station, get_wq_limits, get_project_area) {
         console.log("GetSites started for site " + site_name);
-        let url = BASE_API_URL + site_name + "/sites";
+        let base_url = BASE_API_URL + site_name + "/sites";
+        let url = new URL(base_url);
         if(station.length)
         {
-            url = url + '?site=' + station;
+            url.searchParams.append("site", station);
         }
-        console.log("GetSites started POST url: " + url);
-        return axios.get(url, {headers: {'Content-Type': 'application/json'}});
+        if(get_wq_limits)
+        {
+            url.searchParams.append("wq_limits", get_wq_limits);
+        }
+        if(get_project_area)
+        {
+            url.searchParams.append("project_area", get_project_area);
+        }
+        console.log("GetSites started POST url: " + url.href);
+        return axios.get(url.href, {headers: {'Content-Type': 'application/json'}});
             //.then(res => res.data)
             //.catch(error => console.error(error));
     },
@@ -41,14 +51,16 @@ export default {
 
     },
     GetWaterQualityProgramInfo(site_name, program_type) {
-        console.log("GetWaterQualityProgramInfo started for site: " + site_name + ".");
-        let url = BASE_API_URL + site_name + '/collectionprograminfo';
+        console.debug("GetWaterQualityProgramInfo started for site: " + site_name + ".");
+        let base_url = BASE_API_URL + site_name + '/collectionprograminfo';
+        let url = new URL(base_url)
         if(program_type !== undefined)
         {
-            url = url + '?program_type=' + program_type
+            url.searchParams.append("program_type", program_type)
+            //url = url + '?program_type=' + program_type
         }
-        console.log("GetWaterQualityProgramInfo POST url: " + url);
-        let program_info_promise = axios.get(url, {headers: {'Content-Type': 'application/json'}})
+        console.debug("GetWaterQualityProgramInfo POST url: " + url.href);
+        let program_info_promise = axios.get(url.href, {headers: {'Content-Type': 'application/json'}})
             .then(program_info=> {
                 let ret_val = []
                 if('data' in program_info) {

@@ -230,7 +230,7 @@
             if (path.length) {
                 let location_site_name = this.$store.state.site_name;
                 console.debug("Retrieving initial site: " +  location_site_name + " data.");
-                DataAPI.GetSitesPromise(location_site_name, '').then(features => {
+                DataAPI.GetSitesPromise(location_site_name, '', true, true).then(features => {
                     console.debug("Retrieved: " + features.data.sites.features.length + " features");
                     vm.features = features.data.sites.features;
                     if('limits' in features.data.advisory_info) {
