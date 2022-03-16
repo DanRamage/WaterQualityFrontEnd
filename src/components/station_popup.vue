@@ -1,8 +1,8 @@
 <template>
   <div class="montserat-font container page-background data-graph">
-    <div class="row">
-      <div class="col">
-        <div class="font-avenir fs-5">
+    <div class="row mt-3">
+      <div class="col-sm-12 mt-5">
+        <div class="font-avenir fs-4">
           <div>Water Quality Site: {{ site_description }}</div>
           <div>Site ID: {{ site_id }}</div>
         </div>
@@ -29,13 +29,48 @@
 
         </div>
       </div>
-      <div class="col-sm-4 ml-4 fs-6">
-        Blurb about the site or data collection goes here.
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="col-sm-12 mt-3 m-lg-3">
+            <div v-if="hasNowcastData">
+              <div class="fs-4">
+                <a @click="clickNowCastInfo">Nowcast <i class="bi bi-info-circle info-icon"></i></a>
+              </div>
+              <p>
+                <span class="ms-5 fs-5">Nowcast for {{ nowcastsDate }}: <span :class="alert_text_color(nowcastsValue)"> {{ nowcastsValue }}</span></span>
+                <br>
+                <span class="ml-4 avenir-font-light"></span>
+                <br>
+                <b v-if='isDataFresh("nowcasts") == false' class="ml-4 avenir-font-light text-danger">RESULTS ARE OUT OF
+                  DATE</b>
+              </p>
+            </div>
+            <NowcastInfoModal ref="nowcast_modal" v-show="showNowCastModal" @close-nowcast-modal="showNowCastModal = false" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 mt-3 m-lg-3">
+            <div class="fs-4">
+              <a @click="bacteriaPopup">Sampled Bacteria Data <i class="bi bi-info-circle info-icon"></i></a>
+            </div>
+            <div v-if="!loading">
+              <div v-if="hasAdvisoryData">
+                  <div class="ms-5 fs-5">
+                    Bacteria Data for {{ advisoryDate }}: <span :class="alert_text_color(advisoryValue)">{{ advisoryValue }}</span>
+                  </div>
+                  <div class="ms-5 fs-5">
+                    <b v-if='isDataFresh("advisory") == false' class="avenir-font-light text-danger">RESULTS ARE OUT OF
+                      DATE</b>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <CollectionProgramModal program_type='Water Quality' v-show="showBacteriaModal" @close-collection-modal="showBacteriaModal = false"/>
+
+        </div>
       </div>
     </div>
     <!---
-    Nowcast row
-    --->
     <div class="row gy-0">
       <div class="col-12">
         <hr>
@@ -59,9 +94,11 @@
         </div>
       </div>
     </div>
+    --->
     <!---
     Water quality data row
     --->
+    <!---
     <div class="row gy-0">
       <div class="col-sm-12">
         <hr>
@@ -133,15 +170,6 @@
                            :checked="chartTypeBtn === 'scatter' ? true : false">
                     <label class="form-check-label" for="scatterplot">Scatter Plot</label>
                   </div>
-                  <!---
-                  <div ref="days_buttons" class="btn-group">
-                    <button type="button" class="app-button-style btn btn-outline-primary" :class="{active: activeBtn === 30}" @click="daysButtonClick($event, 30)">30 days</button>
-                    <button type="button" class="app-button-style btn btn-outline-primary" :class="{active: activeBtn === 60}" @click="daysButtonClick($event,60)">60 days</button>
-                    <button type="button" class="app-button-style btn btn-outline-primary" :class="{active: activeBtn === 90}" @click="daysButtonClick($event,90)">90 days</button>
-                    <button type="button" class="app-button-style btn btn-outline-primary" :class="{active: activeBtn === 180}" @click="daysButtonClick($event,180)">180 days</button>
-                    <button type="button" class="app-button-style btn btn-outline-primary" :class="{active: activeBtn === 365}" @click="daysButtonClick($event,365)">365 days</button>
-                  </div>
-                  --->
                 </div>
               </div>
             </div>
@@ -150,10 +178,11 @@
         </div>
       </div>
     </div>
+    --->
     <div class="row gy-0">
       <div class="col-sm-12">
         <hr>
-        <div class="fs-6">Alerts</div>
+        <div class="fs-4">Current Conditions</div>
 
         <div v-if="site_feature !== undefined">
           <NWSAlerts :latitude="site_latitude"
@@ -172,7 +201,7 @@ import FeatureUtils from "../utilities/feature_funcs";
 
 import DataAPI from "../utilities/rest_api";
 
-import WQPlot from "@/components/scatter_plot";
+//import WQPlot from "@/components/scatter_plot";
 import Highcharts from 'highcharts';
 import Icon from 'ol/style/Icon';
 import Style from 'ol/style/Style';
@@ -198,7 +227,7 @@ export default {
     }
   },
   components: {
-    WQPlot,
+    //WQPlot,
     NWSAlerts,
     NowcastInfoModal,
     CollectionProgramModal

@@ -1,0 +1,5 @@
+-Graph add a better description
+-Statistics on samples aboove limit
+-COndense white space
+-Wunderground location pages.
+-WEather info, tides

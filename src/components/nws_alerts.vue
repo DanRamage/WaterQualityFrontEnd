@@ -1,44 +1,50 @@
 <template>
-  <div class="row">
-    <div class="col-sm-3">
-      <div>
-        Rip Currents
-      </div>
-      <div class="ms-5" :class="text_color(rip_current_nws_event)">
-        <a @click="show_rip_current_modal=true">{{rip_current_alert}} <i class="bi bi-info-circle info-icon"></i></a>
-      </div>
-      <NWSAlertPopup popup_id='ripcurrent_modal'
-                     program_type='NWS Rip Current'
-                     v-show="show_rip_current_modal"
-                     @close-nws-modal="show_rip_current_modal = false"
-                     :alert_description="rip_current_details" >
-                     :alert_headline="" >
+  <div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div>
+          Rip Currents
+        </div>
+        <div class="ms-5" :class="text_color(rip_current_nws_event)">
+          <a @click="show_rip_current_modal=true">{{rip_current_alert}} <i class="bi bi-info-circle info-icon"></i></a>
+        </div>
+        <NWSAlertPopup popup_id='ripcurrent_modal'
+                       program_type='NWS Rip Current'
+                       v-show="show_rip_current_modal"
+                       @close-nws-modal="show_rip_current_modal = false"
+                       :alert_description="rip_current_details" >
+                       :alert_headline="" >
 
-      </NWSAlertPopup>
+        </NWSAlertPopup>
+      </div>
+      <!--
+      <div class="col-sm-3">
+        <div>
+          Surf Alert
+        </div>
+        <div class="ms-5" :class="text_color(surf_alert)">
+          <a @click="show_surf_alert_modal=true">{{surf_alert}} <i class="bi bi-info-circle info-icon"></i></a>
+        </div>
+        <NWSAlertPopup popup_id="surfalert_modal"
+                                program_type="NWS Rip Current"
+                                v-show="show_surf_alert_modal"
+                               @close-nws-modal="show_surf_alert_modal = false"
+                               :alert_description="surf_alert_details">
+
+        </NWSAlertPopup>
+      </div>
+      -->
     </div>
-    <div class="col-sm-3">
-      <div>
-        Surf Alert
-      </div>
-      <div class="ms-5" :class="text_color(surf_alert)">
-        <a @click="show_surf_alert_modal=true">{{surf_alert}} <i class="bi bi-info-circle info-icon"></i></a>
-      </div>
-      <NWSAlertPopup popup_id="surfalert_modal"
-                              program_type="NWS Rip Current"
-                              v-show="show_surf_alert_modal"
-                             @close-nws-modal="show_surf_alert_modal = false"
-                             :alert_description="surf_alert_details">
-
-      </NWSAlertPopup>
+    <div v-if="forecast_record !== undefined">
+      <NWSForecastBlock :forecast="forecast_period(0)"></NWSForecastBlock>
     </div>
-
   </div>
-
 </template>
 
 <script>
-  import NWSApi from "@/utilities/nws_rest_api";
   import NWSAlertPopup from "@/components/nws_alert_modal"
+  import NWSForecastBlock from "@/components/nws_forecast_block";
+  import NWSApi from "@/utilities/nws_rest_api";
   import nws_alert from "@/utilities/nws_classes";
 
   export default {
@@ -50,7 +56,8 @@
         'county_code': {type: String, default: undefined}
       },
     components: {
-      NWSAlertPopup
+      NWSAlertPopup,
+      NWSForecastBlock
     },
     data() {
       return {
@@ -64,7 +71,8 @@
         show_rip_current_modal: false,
         show_surf_alert_modal: false,
         rip_current_record: undefined,
-        nws_alerts: []
+        nws_alerts: [],
+        forecast_record: undefined
 
       }
     },
@@ -135,6 +143,38 @@
           console.error(error);
         }
       });
+
+      NWSApi.GetNWSForecast(this.latitude, this.longitude).then(forecast => {
+        if('properties' in forecast)
+        {
+          vm.forecast_record = forecast.properties;
+        }
+        else {
+          if('status' in forecast) {
+            console.error("Status: " + forecast.status + " " + forecast.detail);
+          }
+        }
+      })
+          .catch(error => {
+            vm.forecast_record = undefined;
+            let error_message = '';
+            let status_code = 404;
+            if('response' in error && error.response !== undefined) {
+              status_code = error.response.status;
+              if ('error' in error.response.data) {
+                if ('message' in error.response.data.error) {
+                  error_message = error.response.data.error.message;
+                }
+              } else {
+                error_message = error.response.data;
+              }
+              console.error("Status code: " + status_code +". Error Msg: " + error_message);
+            }
+            else{
+              console.error(error);
+            }
+          });
+
       console.debug("NWSAlertsPage mounted finished.");
     },
     methods: {
@@ -157,10 +197,23 @@
           text_color = 'warning';
         }
         return text_color;
+      },
+      forecast_period: function(period_number) {
+        if(this.forecast_record != undefined)
+        {
+          if(period_number < this.forecast_record.periods.length)
+          {
+            return(this.forecast_record.periods[period_number]);
+          }
+          else {
+            console.error("Period number request: " + period_number + " outside range.");
+          }
+        }
+        return(undefined);
       }
+
     },
     computed: {
-
       rip_currents_text_color: function () {
         if (this.rip_current_alert == "No Alerts") {
           return ("alert");

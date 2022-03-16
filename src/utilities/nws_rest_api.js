@@ -79,6 +79,46 @@ export default {
                 }
             });
         return zones_promise;
-    }
+    },
 
+    GetNWSForecast(latitude, longitude) {
+        console.log("GetNWSForecast started.");
+        let url = new URL(NWS_API_BASE_URL + '/points/' + latitude + ',' + longitude);
+        console.debug("GetNWSForecast POST url: " + url.href);
+        let forecast_promise = axios.get(url.href, {headers: {'Content-Type': 'application/json'}})
+            .then(function(forecast_properties) {
+                if('data' in forecast_properties && 'properties' in forecast_properties.data) {
+                    let forecast_url = forecast_properties.data.properties.forecast;
+                    let forecast_promise = axios.get(forecast_url, {headers: {'Content-Type': 'application/json'}}).then(function(forecast_data) {
+                        return forecast_data;
+                    })
+                    return forecast_promise;
+                }
+            })
+            .then(forecast => {
+                if('data' in forecast) {
+                    return forecast.data;
+                }
+            })
+            .catch(error=> {
+                let error_message = '';
+                let status_code = 404;
+                if('response' in error && error.response !== undefined) {
+                    status_code = error.response.status;
+                    if ('error' in error.response.data) {
+                        if ('message' in error.response.data.error) {
+                            error_message = error.response.data.error.message;
+                        }
+                    } else {
+                        error_message = error.response.data;
+                    }
+                    console.error("Status code: " + status_code +". Error Msg: " + error_message);
+                }
+                else{
+                    console.error(error);
+                }
+            });
+        return forecast_promise;
+
+    }
 }
