@@ -12,7 +12,7 @@ export default {
         let url = new URL(base_url);
         url.searchParams.append("startdate", startdate)
         url.searchParams.append("enddate", enddate)
-        console.log("GetSiteData POST url:" + url.href);
+        console.log("GetSiteData GET url:" + url.href);
         return(axios.get(url.href, {headers: {'Content-Type': 'application/json'}}));
 
     },
@@ -32,7 +32,7 @@ export default {
         {
             url.searchParams.append("project_area", get_project_area);
         }
-        console.log("GetSites started POST url: " + url.href);
+        console.log("GetSites started GET url: " + url.href);
         return axios.get(url.href, {headers: {'Content-Type': 'application/json'}});
             //.then(res => res.data)
             //.catch(error => console.error(error));
@@ -46,7 +46,7 @@ export default {
             "&end_date=" + enddate +
             '&param=' + parameter +
             '&action=get';
-        console.log("GetCameraData POST url: " + url);
+        console.log("GetCameraData GET url: " + url);
         return(axios.get(url, {headers: {'Content-Type': 'application/json'}}));
 
     },
@@ -59,7 +59,7 @@ export default {
             url.searchParams.append("program_type", program_type)
             //url = url + '?program_type=' + program_type
         }
-        console.debug("GetWaterQualityProgramInfo POST url: " + url.href);
+        console.debug("GetWaterQualityProgramInfo GET url: " + url.href);
         let program_info_promise = axios.get(url.href, {headers: {'Content-Type': 'application/json'}})
             .then(program_info=> {
                 let ret_val = []
@@ -81,5 +81,16 @@ export default {
         return program_info_promise;
 
 
+    },
+    error_handler: function(caller_name, error) {
+        let status_code = 404;
+        if('response' in error && error.response !== undefined) {
+            status_code = error.response.status;
+            console.error("Function: " + caller_name + " Status code: " + status_code +". Error Msg: " + error);
+        }
+        else{
+            console.error(error);
+        }
     }
+
 }

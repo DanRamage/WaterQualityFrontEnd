@@ -186,7 +186,8 @@
 
         <div v-if="site_feature !== undefined">
           <NWSAlerts :latitude="site_latitude"
-                     :longitude="site_longitude">
+                     :longitude="site_longitude"
+                     :post_code="site_post_code">
 
           </NWSAlerts>
         </div>
@@ -605,6 +606,12 @@ export default {
 
   watch: {},
   computed: {
+    site_post_code: function() {
+      if (this.feature !== undefined) {
+        return (this.feature.properties.post_code)
+      }
+      return ('');
+    },
     site_longitude: function () {
       if (this.feature !== undefined) {
         return (this.feature.geometry.coordinates[0])

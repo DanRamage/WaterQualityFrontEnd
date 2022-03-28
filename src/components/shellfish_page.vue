@@ -58,7 +58,8 @@
 
         <div v-if="site_feature.length">
           <NWSAlerts :latitude="site_latitude"
-                     :longitude="site_longitude">
+                     :longitude="site_longitude"
+                      :post_code="site_post_code">
 
           </NWSAlerts>
         </div>
@@ -220,6 +221,15 @@ export default {
   },
   watch: {},
   computed: {
+    site_post_code: function() {
+      if (this.p_feature !== undefined) {
+        return (this.p_feature.properties.post_code)
+      }
+      else if(this.internal_feature !== undefined) {
+        return (this.internal_feature.properties.post_code)
+      }
+      return ('');
+    },
     site_name: function() {
       let name = "";
       if(this.p_site_name !== undefined)
