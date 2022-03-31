@@ -49,7 +49,7 @@
             {{this.current_uv_index}}-{{current_uv_index_rating}}
           </div>
         </div>
-        <UVIndexModal v-show="show_uv_index_modal" @close-uv-index-modal="show_uv_index_modal = false"></UVIndexModal>
+        <UVIndexModal current_uv_index="current_uv_index_rating" v-show="show_uv_index_modal" @close-uv-index-modal="show_uv_index_modal = false"></UVIndexModal>
       </div>
     </div>
     <div v-if="forecast_record !== undefined" class="row mt-3">
@@ -401,23 +401,5 @@
     }
   }
 </script>
-<style scoped>
-  .info-icon {
-    fill: red;
-  }
-  .uv_index_low {
-    color: #289500;
-  }
-  .uv_index_moderate {
-    color: #f7e400;
-  }
-  .uv_index_high {
-    color: #f85900;
-  }
-  .uv_index_very_high {
-    color: #d80010;
-  }
-  .uv_index_extreme {
-    color: #6b49c8;
-  }
+<style>
 </style>

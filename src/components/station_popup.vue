@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-3">
+      <div class="col-sm-3 min-width-map-column">
         <div v-if="feature !== undefined" style="height: 250px; width: 250px">
           <vl-map id="single_site_map"
                   ref="single_site_map"
@@ -29,7 +29,7 @@
 
         </div>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-9">
         <div class="row">
           <div class="col-sm-12 mt-3 m-lg-3">
             <div v-if="hasNowcastData">
@@ -740,26 +740,9 @@ export default {
 }
 </script>
 <style scoped>
-.advisory_icon {
-  height: 25px;
-  width: 25px;
+.min-width-map-column {
+  min-width: 250px;
 }
-
-.wq-card {
-  /*font-family: 'Montserrat';*/
-  color: rgba(0, 61, 126, .85);
-  background-color: rgba(255, 255, 255, .85);
-}
-
-.full-graph {
-  width: 100%;
-  height: 100%;
-}
-
-.graph {
-  max-height: 200px;
-}
-
 .data-graph {
   background-color: rgba(0, 61, 126, .85);
   color: #003D7ED8

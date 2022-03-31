@@ -165,5 +165,23 @@
     .no_alert {
       color: green;
     }
+    .info-icon {
+      fill: red;
+    }
+    .uv_index_low {
+      color: #289500;
+    }
+    .uv_index_moderate {
+      color: #f7e400;
+    }
+    .uv_index_high {
+      color: #f85900;
+    }
+    .uv_index_very_high {
+      color: #d80010;
+    }
+    .uv_index_extreme {
+      color: #6b49c8;
+    }
 
 </style>

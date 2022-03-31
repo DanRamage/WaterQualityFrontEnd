@@ -18,15 +18,15 @@
             The UV Index Scale
             <table class="table table-striped table-font">
               <tr>
-                <td>Low</td>
+                <td class="uv_index_low">Low</td>
                 <td>No protection needed. You can safely stay outside using minimal sun protection.</td>
               </tr>
               <tr>
-                <td>Moderate to High</td>
+                <td><span class="uv_index_moderate">Moderate</span> to <span class="uv_index_high">High</span></td>
                 <td>Protection needed. Seek shade during late morning through mid-afternoon. When outside, generously apply broad-spectrum SPF-15 or higher sunscreen on exposed skin, and wear protective clothing, a wide-brimmed hat, and sunglasses.</td>
               </tr>
               <tr>
-                <td>Very High to Extreme</td>
+                <td><span class="uv_index_very_high">Very High</span> to <span class="uv_index_extreme">Extreme</span></td>
                 <td>Extra protection needed. Be careful outside, especially during late morning through mid-afternoon. If your shadow is shorter than you, seek shade and wear protective clothing, a wide-brimmed hat, and sunglasses, and generously apply a minimum of  SPF-15, broad-spectrum sunscreen on exposed skin.</td>
               </tr>
             </table>
@@ -43,7 +43,15 @@
 
 <script>
 export default {
-  name: "UVIndexModal"
+  name: "UVIndexModal",
+  props: {
+    'current_uv_index': {type: String, default: ""},
+  },
+  computed: {
+    current_index: function() {
+      return(this.current_uv_index);
+    }
+  }
 };
 </script>
 <style scoped>
