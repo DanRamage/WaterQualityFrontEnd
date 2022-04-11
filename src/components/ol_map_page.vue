@@ -146,7 +146,7 @@
 
     import DataAPI from "../utilities/rest_api";
     import FeatureUtils from "../utilities/feature_funcs";
-    //import WQPopup from "./wq_popup.vue";
+    import BCRSPopup from "./bcrs_popup";
     //import ShellfishPopup from "@/components/shellfish_popup";
     //import RipcurrentPopup from "@/components/riptide_popup";
     //import CameraPopup from "@/components/camera_popup";
@@ -159,6 +159,7 @@
 
     import Style from 'ol/style/Style';
     import Icon from 'ol/style/Icon';
+    //import * as olSize from 'ol/size';
 
     //SInce these are not in the template, we import them here. We use them in the javascript below when
     //determining which icon to use.
@@ -169,17 +170,14 @@
     import ShellfishLowMarkerIcon from '@/assets/images/shellfish_low_marker_25x25.png'
     import ShellfishHiMarkerIcon from '@/assets/images/shellfish_high_marker_25x25.png'
     import ShellfishNoneMarkerIcon from '@/assets/images/shellfish_none_marker_25x25.png'
+    import MoteMarineBCRSIcon from '@/assets/images/mote_icon.png'
 
     export default {
         name: 'OLMapPage',
 
         components: {
-            //CameraPopup,
-            //RipcurrentPopup,
-            //ShellfishPopup,
-            //WQPopup,
-            //UnknownTypePopup,
-            IconsLegend
+          BCRSPopup,
+          IconsLegend
         },
         data () {
             return {
@@ -436,6 +434,17 @@
                         }
 
                     }
+
+                    else if(site_type == 'Beach Ambassador') {
+                      icon = new Icon({
+                        src: MoteMarineBCRSIcon,
+                        scale: 0.15
+                      });
+                      if(!(vm.legend_icons.includes('Camera Site'))) {
+                        vm.legend_icons.push('Beach Ambassador');
+                      }
+
+                    }
                     let icon_style = [
                         new Style({
                             image: icon,
@@ -518,6 +527,12 @@
                   });
 
                 }
+
+                else if(feature.properties.site_type == "Beach Ambassador") {
+                  return(BCRSPopup);
+                }
+
+
                 /*
                 else if(feature.properties.site_type == "Shellfish") {
                     EventUtils.log_event(this.$gtag, 'click', 'Shellfish Station', feature.properties.description, 0);
