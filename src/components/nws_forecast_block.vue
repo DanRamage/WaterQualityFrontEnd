@@ -1,5 +1,5 @@
 <template>
-  <div class="forecast_block">
+  <div :id="forecast_block_id" class="forecast_block">
     <div class="row">
       <div class="col-sm-12">
         <b>Forecast for {{forecast_for}}</b>
@@ -7,8 +7,9 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-      <div>
-        <a @click="show_forecast_details_modal=true"><ins>{{forecast_short_forecast}}</ins></a>
+        <div>
+          <a @click="show_forecast_details_modal=true"><ins>{{forecast_short_forecast}}</ins></a>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -21,7 +22,15 @@
         Wind: {{forecast_wind}}
       </div>
     </div>
-    <div v-show="show_forecast_details_modal" id="forecast_details_modal" class="modal nws-modal-active">
+    <ForecastDetailsModal v-show="show_forecast_details_modal"
+                          :forecast_modal_id="forecast_modal_id"
+                          :forecast_for="forecast_for"
+                          :forecast_details="forecast_details"
+                          @close-forecast-details-modal="show_forecast_details_modal = false">
+
+    </ForecastDetailsModal>
+    <!--
+    <div v-show="show_forecast_details_modal" class="modal modal-active">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -36,32 +45,45 @@
           </div>
         </div>
       </div>
-  </div>
-
+      -->
   </div>
 
 </template>
 <script>
+import ForecastDetailsModal from '@/components/nws_forecast_detail_modal';
 
 export default {
 
   name: 'NWSForecastBlock',
   components: {
+    ForecastDetailsModal
   },
   props: {
+    'forecast_block_id': {default: ""},
     'forecast': {default: undefined},
     'longitude': {type: Number, default: undefined},
     'latitude': {type: Number, default: undefined}
-    },
+  },
   data() {
     return {
       show_forecast_details_modal: false
     }
   },
   mounted() {
-    console.debug("NWSForecastBlock mounted.")
+    console.debug("NWSForecastBlock mounted. ID: " + this.forecast_block_id);
+  },
+  methods: {
+    /*
+    detail_forecast_click: function() {
+      console.info("detail_forecast_click");
+      this.show_forecast_details_modal = true;
+    }
+    */
   },
   computed: {
+    forecast_modal_id: function() {
+      return(this.forecast_block_id + "_modal");
+    },
     forecast_for: function() {
       if(this.forecast != undefined)
       {
@@ -102,7 +124,7 @@ export default {
 
 </script>
 <style scoped>
-  .forecast_block {
-    background-color: #f5f5f5;
-  }
+.forecast_block {
+  background-color: #f5f5f5;
+}
 </style>

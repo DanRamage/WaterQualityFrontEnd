@@ -54,16 +54,16 @@
     </div>
     <div v-if="forecast_record !== undefined" class="row mt-3">
       <div class="col-sm-3">
-        <NWSForecastBlock :forecast="forecast_period(0)"></NWSForecastBlock>
+        <NWSForecastBlock forecast_block_id="forecast_0" :forecast="forecast_period(0)"></NWSForecastBlock>
       </div>
       <div class="col-sm-3">
-        <NWSForecastBlock :forecast="forecast_period(1)"></NWSForecastBlock>
+        <NWSForecastBlock forecast_block_id="forecast_1" :forecast="forecast_period(1)"></NWSForecastBlock>
       </div>
       <div class="col-sm-3">
-        <NWSForecastBlock :forecast="forecast_period(2)"></NWSForecastBlock>
+        <NWSForecastBlock forecast_block_id="forecast_2" :forecast="forecast_period(2)"></NWSForecastBlock>
       </div>
       <div class="col-sm-3">
-        <NWSForecastBlock :forecast="forecast_period(3)"></NWSForecastBlock>
+        <NWSForecastBlock forecast_block_id="forecast_3" :forecast="forecast_period(3)"></NWSForecastBlock>
       </div>
     </div>
   </div>
