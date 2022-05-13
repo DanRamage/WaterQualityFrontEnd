@@ -357,7 +357,7 @@
               else if(this.current_uv_index > 10)
               {
                 this.current_uv_index_rating = "Extreme";
-                this.current_uv_color_class = 'uv_index_very_extreme';
+                this.current_uv_color_class = 'uv_index_extreme';
               }
 
               break;

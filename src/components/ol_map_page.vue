@@ -170,7 +170,7 @@
     import ShellfishLowMarkerIcon from '@/assets/images/shellfish_low_marker_25x25.png'
     import ShellfishHiMarkerIcon from '@/assets/images/shellfish_high_marker_25x25.png'
     import ShellfishNoneMarkerIcon from '@/assets/images/shellfish_none_marker_25x25.png'
-    import MoteMarineBCRSIcon from '@/assets/images/mote_icon.png'
+    import MoteMarineBeachAmbassadorIcon from '@/assets/images/mote-beach-ambassador-25x41.png'
 
     export default {
         name: 'OLMapPage',
@@ -437,10 +437,11 @@
 
                     else if(site_type == 'Beach Ambassador') {
                       icon = new Icon({
-                        src: MoteMarineBCRSIcon,
-                        scale: 0.15
+                        src: MoteMarineBeachAmbassadorIcon,
+                        //Scale the icon a bit to make it less overwhelming on the map.
+                        scale: 0.8
                       });
-                      if(!(vm.legend_icons.includes('Camera Site'))) {
+                      if(!(vm.legend_icons.includes('Beach Ambassador'))) {
                         vm.legend_icons.push('Beach Ambassador');
                       }
 

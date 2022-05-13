@@ -592,13 +592,17 @@ export default {
     },
     alert_text_color: function(level) {
       let text_color = '';
+
       if(level == "LOW")
       {
         text_color = 'no_alert';
       }
-      else
+      else if(level == "HIGH")
       {
         text_color = 'warning';
+      }
+      else {
+        text_color = 'no_data'
       }
       return text_color;
     }
@@ -660,33 +664,49 @@ export default {
     },
     advisoryDate: function () {
       console.debug("advisoryDate started.");
-      if (this.feature !== undefined) {
-        if (this.hasAdvisoryData) {
-          let site_type = this.feature.properties.site_type;
-          let date_obj = moment(this.feature.properties[site_type].advisory.date);
-          let date_str = date_obj.format("MMMM Do YYYY");
-          console.debug("advisoryDate returning: " + date_str);
-          return (date_str);
+      let date_str = "";
+      try {
+        if (this.feature !== undefined) {
+          if (this.hasAdvisoryData) {
+            let site_type = this.feature.properties.site_type;
+            let date_obj = moment(this.feature.properties[site_type].advisory.date);
+            if(date_obj.isValid()) {
+              date_str = date_obj.format("MMMM Do YYYY");
+            }
+          }
         }
-        console.debug("advisoryDate returning: ");
       }
-      return ("");
+      catch(error)
+      {
+        console.error(error);
+      }
+      console.debug("advisoryDate returning: " + date_str);
+      return(date_str);
     },
     advisoryValue: function () {
       console.debug("advisoryValue started.");
       let advisory_level = '';
+      let value = undefined;
       if (this.feature !== undefined) {
         if (this.hasAdvisoryData) {
           let site_type = this.feature.properties.site_type;
-          let value = this.feature.properties[site_type].advisory.value;
-          console.debug("advisoryValue returning: " + value);
-          advisory_level = "LOW";
-          if(value > this.$store.state.advisory_limits.hi.minimum) {
-            advisory_level = "HIGH"
+          try {
+             value = parseInt(this.feature.properties[site_type].advisory.value, 10);
+          }
+          catch(error) {
+            console.error(error);
+          }
+          advisory_level = "NO DATA";
+          if(value !== undefined && !isNaN(value)) {
+            if (value > this.$store.state.advisory_limits.hi.minimum) {
+              advisory_level = "HIGH"
+            } else {
+              advisory_level = "LOW"
+            }
           }
         }
       }
-      console.debug("advisoryValue returning: ");
+      console.debug("advisoryValue returning: " + value);
       return (advisory_level);
     },
     hasNowcastData: function () {
@@ -705,17 +725,23 @@ export default {
     },
     nowcastsDate: function () {
       console.debug("nowcastsDate started.");
-      if (this.feature !== undefined) {
-        if (this.hasAdvisoryData) {
-          let site_type = this.feature.properties.site_type;
-          let date_obj = moment(this.feature.properties[site_type].nowcasts.date);
-          let date_str = date_obj.format("MMMM Do YYYY");
-          console.debug("nowcastsDate returning: " + date_str);
-          return (date_str);
+      let date_str = "";
+      try {
+        if (this.feature !== undefined) {
+          if (this.hasAdvisoryData) {
+            let site_type = this.feature.properties.site_type;
+            let date_obj = moment(this.feature.properties[site_type].nowcasts.date);
+            if(date_obj.isValid()) {
+              date_str = date_obj.format("MMMM Do YYYY");
+            }
+          }
         }
       }
-      console.debug("nowcastsDate returning: ");
-      return ("");
+      catch(error) {
+        console.error(error);
+      }
+      console.debug("nowcastsDate returning: " + date_str);
+      return (date_str);
     },
     nowcastsValue: function () {
       console.debug("nowcastsValue started.");

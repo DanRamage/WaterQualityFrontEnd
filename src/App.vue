@@ -165,6 +165,9 @@
     .no_alert {
       color: green;
     }
+    .no_data {
+      color: grey;
+    }
     .info-icon {
       fill: red;
     }

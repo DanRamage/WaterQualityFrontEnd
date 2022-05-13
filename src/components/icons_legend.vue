@@ -45,6 +45,12 @@
                                 Camera Sites
                             </li>
                         </div>
+                        <div v-if="hasIcons('Beach Ambassador')">
+                          <li class="list-group-item">
+                            <img src="@/assets/images/mote-beach-ambassador-25x41.png" class="advisory_icon mr-1 mote-icon">
+                            Beach Ambassador Sites
+                          </li>
+                        </div>
                     </ul>
                     <b>Color Codes</b>
                     <ul class="list-group list-group-flush">
@@ -155,5 +161,9 @@
     }
     .card-background-color {
         background-color: rgba(0, 61, 126, .85);
+    }
+    .mote-icon {
+      //height: 45px;
+      //width: 45px;
     }
 </style>
