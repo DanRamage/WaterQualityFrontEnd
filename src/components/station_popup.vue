@@ -566,6 +566,7 @@ export default {
     bacteriaPopup() {
       console.debug("bacteriaPopup clicked.");
       /*temporay until we get the states into the database*/
+      /*
       let sc_sites = ['charleston', 'myrtlebeach', 'follybeach', 'surfside'];
       let nc_sites = ['killdevilhills'];
       let fl_sites = ['sarasota'];
@@ -580,9 +581,10 @@ export default {
         this.activeBacteriaModal = "NCBacteriaPopup";
       }
       else if (fl_sites.includes(this.$store.state.site_name)) {
-        this.activeBacteriaModalName = "nc_bacteria_data_modal";
-        this.activeBacteriaModal = "NCBacteriaPopup";
+        this.activeBacteriaModalName = "fl_bacteria_data_modal";
+        this.activeBacteriaModal = "FLBacteriaPopup";
       }
+      */
       //this.$bvModal.show(this.activeBacteriaModalName);
       this.showBacteriaModal = true;
     },

@@ -22,6 +22,7 @@
         Wind: {{forecast_wind}}
       </div>
     </div>
+
     <ForecastDetailsModal v-show="show_forecast_details_modal"
                           :forecast_modal_id="forecast_modal_id"
                           :forecast_for="forecast_for"
@@ -30,7 +31,10 @@
 
     </ForecastDetailsModal>
     <!--
-    <div v-show="show_forecast_details_modal" class="modal modal-active">
+    It's not clear why having the modal inn this template instead of a component as above will not show.
+    -->
+    <!--
+    <div :id="forecast_modal_id" v-show="show_forecast_details_modal" class="modal modal-active">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -45,9 +49,8 @@
           </div>
         </div>
       </div>
-      -->
+    -->
   </div>
-
 </template>
 <script>
 import ForecastDetailsModal from '@/components/nws_forecast_detail_modal';
