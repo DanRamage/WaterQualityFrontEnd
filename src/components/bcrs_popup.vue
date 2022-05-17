@@ -22,7 +22,7 @@
               Click <a :href="bcrs_site_link" target="_blank">here</a> to view Beach Ambassador reports for this location.
             </div>
             <div>
-              This will open the <a href="visitbeaches.org">Visit Beaches</a> site in a new tab.
+              This will open the Beach Conditions Reporting System website in a new tab.
             </div>
           </div>
         </div>
