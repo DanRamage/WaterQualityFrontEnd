@@ -19,10 +19,10 @@
               Beach Ambassador Site: {{ bcrs_site_name }}
             </p>
             <div>
-              Click <a :href="bcrs_site_link" target="_blank">here</a> to view the Beach Ambassador report.
+              Click <a :href="bcrs_site_link" target="_blank">here</a> to view Beach Ambassador reports for this location.
             </div>
             <div>
-              This will open the Visit Beaches site in a new tab.
+              This will open the <a href="visitbeaches.org">Visit Beaches</a> site in a new tab.
             </div>
           </div>
         </div>
