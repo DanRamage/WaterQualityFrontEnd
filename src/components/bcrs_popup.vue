@@ -1,20 +1,21 @@
+<!--
+This is the popup component for the Beach Conditions Reporting System.
+-->
 <template>
   <div id="wq-popup">
-    <div id="wq_card"
-         class="card wq-card"
-    >
-      <!--
-      <img class="card-img-top mote-card" src="@/assets/images/mote-white-logo.png" alt="Mote Marine Beach Condition Reporting System">
-      -->
-      <div class="card-header mote-header">
-        Beach Conditions Reporting System
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-4">
-            <img class="mote-card" src="@/assets/images/mote_icon.png" alt="Mote Marine Beach Condition Reporting System">
+    <div class="row">
+      <div class="col-sm-9">
+        <div id="wq_card"
+             class="card wq-card"
+        >
+          <!--
+          <img class="card-img-top mote-card" src="@/assets/images/mote-white-logo.png" alt="Mote Marine Beach Condition Reporting System">
+          -->
+          <div class="card-header mote-header">
+            Beach Conditions Reporting System
           </div>
-          <div class="col-sm-8">
+          <div class="card-body">
+            <img class="mote-card card-img-top mote-logo-img" src="@/assets/images/mote_icon.png" alt="Mote Marine Beach Condition Reporting System">
             <p>
               Beach Ambassador Site: {{ bcrs_site_name }}
             </p>
@@ -47,14 +48,14 @@
         },
         computed: {
           bcrs_site_link: function() {
-            if(this.feature != undefined)
+            if(this.feature !== undefined)
             {
               return(this.feature.properties[this.feature.properties.site_type].site_url);
             }
             return('');
           },
           bcrs_site_name: function() {
-            if(this.feature != undefined)
+            if(this.feature !== undefined)
             {
               return(this.feature.properties.site_name);
             }
@@ -80,6 +81,10 @@
     .mote-header {
       background-color: #1461ab;
       color: #FFFFFF;
+    }
+    .mote-logo-img {
+      height: 125px;
+      width: 115px;
     }
     .mote-blue {
       color: #1461ab;
