@@ -147,6 +147,7 @@
     import DataAPI from "../utilities/rest_api";
     import FeatureUtils from "../utilities/feature_funcs";
     import BCRSPopup from "./bcrs_popup";
+    import ShellcastPopup from "./shellcast_popup";
     //import ShellfishPopup from "@/components/shellfish_popup";
     //import RipcurrentPopup from "@/components/riptide_popup";
     //import CameraPopup from "@/components/camera_popup";
@@ -171,13 +172,15 @@
     import ShellfishHiMarkerIcon from '@/assets/images/shellfish_high_marker_25x25.png'
     import ShellfishNoneMarkerIcon from '@/assets/images/shellfish_none_marker_25x25.png'
     import MoteMarineBeachAmbassadorIcon from '@/assets/images/mote-beach-ambassador-25x41.png'
+    import ShellcastIcon from '@/assets/images/shellcast_marker_25x25.png'
 
     export default {
         name: 'OLMapPage',
 
         components: {
           BCRSPopup,
-          IconsLegend
+          IconsLegend,
+          ShellcastPopup
         },
         data () {
             return {
@@ -446,7 +449,19 @@
                       }
 
                     }
-                    let icon_style = [
+
+                    else if(site_type == 'Shellcast')
+                    {
+                      icon = new Icon({
+                        src: ShellcastIcon,
+                      });
+                      if(!(vm.legend_icons.includes('Shellcast'))) {
+                        vm.legend_icons.push('Shellcast');
+                      }
+
+                    }
+
+                  let icon_style = [
                         new Style({
                             image: icon,
                         })
@@ -531,6 +546,9 @@
 
                 else if(feature.properties.site_type == "Beach Ambassador") {
                   return(BCRSPopup);
+                }
+                else if(feature.properties.site_type == "Shellcast") {
+                  return(ShellcastPopup);
                 }
 
 

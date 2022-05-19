@@ -51,6 +51,12 @@
                             Beach Ambassador Sites
                           </li>
                         </div>
+                      <div v-if="hasIcons('Shellcast')">
+                        <li class="list-group-item">
+                          <img src="@/assets/images/shellcast_marker_25x25.png" class="advisory_icon mr-1">
+                          Shellcast Sites
+                        </li>
+                      </div>
                     </ul>
                     <b>Color Codes</b>
                     <ul class="list-group list-group-flush">
