@@ -1,3 +1,6 @@
+<!--
+This is the component for a single NWS forecast.
+-->
 <template>
   <div :id="forecast_block_id" class="forecast_block">
     <div class="row">

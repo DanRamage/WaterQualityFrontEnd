@@ -1,3 +1,7 @@
+<!--
+This is the popup to show the forecast details for an NWS forecast. In the nws_forecast_block we show the
+short forecast version, this popup shows the detailed forecast when clicked.
+-->
 <template>
   <div :id="forecast_modal_id" class="modal modal-active">
     <div class="modal-dialog">

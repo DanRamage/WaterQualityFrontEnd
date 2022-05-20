@@ -38,9 +38,9 @@
                 </div>
             </template>
         </SideBar>
-        <div id="content" class="ml-5 mt-5">
+        <div id="content" class="ms-4 mt-4">
             <div v-b-toggle.collapse-1 variant="outline-primary" class="text-blue avenir-font-light">
-                <span class="FAQ-text mr-4 font-weight-normal">What is How's the Beach?</span>
+                <span class="FAQ-text mr-4 font-weight-normal">What is How's the Beach? </span>
                 <span class="whatis-opened FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-up']" /></span>
                 <span class="whatis-closed FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-right']" /></span>
             </div>
@@ -56,28 +56,36 @@
                     <div class="card-text text-blue avenir-font fs-5">Project Partners</div>
                     <div>
                         <div class="row align-items-center">
-                            <div class="col-3">
-                            </div>
-                            <div class="col-3">
+                            <div class="col-sm-2">
                                 <a href="https://sc.edu/study/colleges_schools/public_health/index.php" target="_blank">
                                     <img src="@/assets/images/sc_logo.png" alt="" width="150" height="75">
                                 </a>
                             </div>
-                            <div class="col-3">
+                            <div class="col-sm-2">
                                 <img src="@/assets/images/umces_logo.png" alt="" width="150" height="75">
                             </div>
-                            <div class="col-3">
+                            <div class="col-sm-2">
                                 <a href="https://secoora.org" target="_blank">
                                     <img src="@/assets/images/secoora_logo.png" alt="" width="150" height="75">
                                 </a>
                             </div>
+                            <div class="col-sm-2">
+                              <a href="https://mote.org/" target="_blank">
+                                <img src="@/assets/images/mote_icon.png" alt="" width="125" height="115">
+                              </a>
+                            </div>
+                            <div class="col-sm-2">
+                              <a href="https://www.bae.ncsu.edu/" target="_blank">
+                                <img src="@/assets/images/nc_state_bae_logo.png" alt="" width="150" height="75">
+                              </a>
+                          </div>
                         </div>
                     </div>
                 </b-card>
             </b-collapse>
 
             <div v-b-toggle.collapse-2 variant="outline-primary" class="text-blue avenir-font-light mt-4">
-                <span class="FAQ-text mr-4 font-weight-normal">What are we nowcasting?</span>
+                <span class="FAQ-text mr-4 font-weight-normal">What are we nowcasting? </span>
                 <span class="whatis-opened FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-up']" /></span>
                 <span class="whatis-closed FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-right']" /></span>
             </div>
@@ -95,7 +103,7 @@
             </b-collapse>
 
             <div v-b-toggle.collapse-3 variant="outline-primary" class="text-blue avenir-font-light mt-4">
-                <span class="FAQ-text mr-4 font-weight-normal">What is the nowcast? How is it generated?</span>
+                <span class="FAQ-text mr-4 font-weight-normal">What is the nowcast? How is it generated? </span>
                 <span class="whatis-opened FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-up']" /></span>
                 <span class="whatis-closed FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-right']" /></span>
             </div>
@@ -121,29 +129,60 @@
             </b-collapse>
 
             <div v-b-toggle.collapse-4 variant="outline-primary" class="text-blue avenir-font-light mt-4">
-                    <span class="FAQ-text mr-4 font-weight-normal">Questions? Contact us!</span>
+              <span class="FAQ-text mr-4 font-weight-normal">Who are we collaborating with? </span>
+              <span class="whatis-opened FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-up']" /></span>
+              <span class="whatis-closed FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-right']" /></span>
+            </div>
+            <b-collapse id="collapse-4" class="ms-4 mt-1">
+              <b-card>
+                  <h4>Mote Marine Laboratory & Aquarium</h4>
+                  <a href="https://mote.org/" target="_blank">
+                    <img src="@/assets/images/mote_icon.png" alt="" width="125" height="115">
+                  </a>
+                  <p class="card-text text-blue avenir-font fs-5">
+                  How's the Beach and the Mote Marine Laboratory & Aquarium <a href="https://visitbeaches.org" target="_blank">Beach Conditions Reporting System </a>
+                  share data in locations where the two projects have a geographic overlap, such as in <a href="/sarasota/map">Sarasota </a>
+                  </p>
+                  <hr>
+                  <h4>North Carolina State University Biological and Agricultural Engineering</h4>
+                  <a href="https://www.bae.ncsu.edu/" target="_blank">
+                    <img src="@/assets/images/nc_state_bae_logo.png" alt="" width="150" height="75">
+                  </a>
+                  <p class="card-text text-blue avenir-font fs-5">
+                    How's the Beach and NCSU's <a href="https://ncsu-shellcast.appspot.com/" target="_blank">ShellCast </a>
+                    share data in locations where the two projects have a geographic overlap, such as in the <a href="/killdevilhills/map">Outer Banks </a>
+                  </p>
+
+
+              </b-card>
+            </b-collapse>
+
+
+            <div v-b-toggle.collapse-5 variant="outline-primary" class="text-blue avenir-font-light mt-4">
+                    <span class="FAQ-text mr-4 font-weight-normal">Questions? Contact us! </span>
                     <span class="whatis-opened FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-up']" /></span>
                     <span class="whatis-closed FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-right']" /></span>
             </div>
-            <b-collapse id="collapse-4" class="mt-1">
+            <b-collapse id="collapse-5" class="mt-1">
                 <b-card>
                     <div class="card-text text-blue avenir-font-light fs-3">
                         <a href="mailto: howsmybeach@gmail.com">Email us!</a>
                     </div>
                 </b-card>
             </b-collapse>
-          <div v-b-toggle.collapse-5 variant="outline-primary" class="text-blue avenir-font-light mt-4">
-            <span class="FAQ-text mr-4 font-weight-normal">API Reference</span>
-            <span class="whatis-opened FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-up']" /></span>
-            <span class="whatis-closed FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-right']" /></span>
-          </div>
-          <b-collapse id="collapse-5" class="mt-1">
-            <b-card>
-              <div class="card-text text-blue avenir-font-light fs-5">
-                Access data via the API. Reference docs can be found <a href="https://devapi.howsthebeach.org/api/v1/docs" target="_blank">here.</a>
-              </div>
-            </b-card>
-          </b-collapse>
+
+            <div v-b-toggle.collapse-6 variant="outline-primary" class="text-blue avenir-font-light mt-4">
+              <span class="FAQ-text mr-4 font-weight-normal">API Reference </span>
+              <span class="whatis-opened FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-up']" /></span>
+              <span class="whatis-closed FAQ-text"><font-awesome-icon :icon="['fas', 'chevron-right']" /></span>
+            </div>
+            <b-collapse id="collapse-6" class="mt-1">
+              <b-card>
+                <div class="card-text text-blue avenir-font-light fs-5">
+                  Access data via the API. Reference docs can be found <a href="https://devapi.howsthebeach.org/api/v1/docs" target="_blank">here.</a>
+                </div>
+              </b-card>
+            </b-collapse>
         </div>
     </div>
 </template>
