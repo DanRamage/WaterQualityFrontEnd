@@ -33,14 +33,6 @@
         <p>
           {{ collection_program_description }}
         </p>
-        <p>
-          For more information, go <a :href="collection_program_url" target="new">here</a>
-        </p>
-      </div>
-    </div>
-    <div class="row gy-0">
-      <div class="col-12">
-        <hr>
         <div>
           Site: <span :class="text_color(advisory)">{{advisory}}</span>
         </div>
@@ -49,6 +41,11 @@
         </div>
         <div class="row">
         </div>
+      </div>
+    </div>
+    <div class="row gy-0">
+      <div class="col-12">
+        <hr>
       </div>
     </div>
     <div class="row gy-0">
