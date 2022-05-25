@@ -47,7 +47,7 @@
             <b-collapse id="collapse-1" class="mt-1">
                 <b-card>
                     <p class="card-text text-blue avenir-font  fs-5">
-                        How’s the Beach is tool that predicts bacterial conditions in public waters at four
+                        How’s the Beach is tool that predicts bacterial conditions in public waters at multiple
                         locations on the east coast of America. It is designed to inform the public of unsafe swimming
                         conditions. How’s the Beach is a joint initiative of University of South Carolina,
                         Southeast Coastal Ocean Observing Regional Association, and the Integration and Application
