@@ -48,7 +48,7 @@
             <NowcastInfoModal ref="nowcast_modal" v-show="showNowCastModal" @close-nowcast-modal="showNowCastModal = false" />
           </div>
         </div>
-        <div class="row">
+        <div v-if="show_bacteria_results" class="row">
           <div class="col-sm-12 mt-3 m-lg-3">
             <div class="fs-4">
               <a @click="bacteriaPopup">Sampled Bacteria Data <i class="bi bi-info-circle info-icon"></i></a>
@@ -649,6 +649,9 @@ export default {
       set: function (chart_type) {
         this.chartTypeBtn = chart_type;
       }
+    },
+    show_bacteria_results: function() {
+      return(false);
     },
     hasAdvisoryData: function () {
       console.debug("hasAdvisoryData started.");
