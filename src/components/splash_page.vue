@@ -155,7 +155,7 @@
             </a>
           </b-col>
           <b-col class="my-auto" sm="2">
-            <a href="">
+            <a href="https://visitbeaches.org/education/faq/1">
               <h5 class="montserat-font text-white"><i>Become A Beach Ambassador</i></h5>
             </a>
           </b-col>
