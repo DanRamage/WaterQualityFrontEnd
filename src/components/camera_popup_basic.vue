@@ -5,14 +5,12 @@
         <div id="wq_card"
              class="card wq-card"
         >
-          <!--
-          <img class="card-img-top mote-card" src="@/assets/images/mote-white-logo.png" alt="Mote Marine Beach Condition Reporting System">
-          -->
-          <div class="card-header">
-            WebCOOS Web Camera Observation Network
+
+          <div class="card-header cam-header">
+            Web Camera Observation Network
           </div>
           <div class="card-body">
-            <img class="" src="" alt="Web Camera Observation Network">
+            <img class="card-img-top cam-card cam-logo-img" src="@/assets/images/secoora_logo_white.svg" alt="Web Camera Observation Network">
             <p>
               Camera Site Name: {{ camera_site_name }}
             </p>
@@ -71,7 +69,6 @@
 </script>
 <style scoped>
     .wq-card {
-        /*font-family: 'Montserrat';*/
         color: rgba(0, 61, 126, .85);
         background-color: rgba(255, 255, 255, .85);
     }
@@ -89,6 +86,19 @@
     #camera-popup div .card-subtitle
     {
         font-size: 1.0rem
+    }
+    .cam-header {
+      background-color: #1461ab;
+      color: #FFFFFF;
+    }
+    .cam-logo-img {
+      height: 125px;
+      width: 115px;
+    }
+    .cam-card {
+      background-color: rgb(20, 97, 171);
+    //height: 100px;
+    //width: 100px;
     }
 
 

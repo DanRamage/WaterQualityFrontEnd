@@ -154,7 +154,12 @@
               <h5 class="montserat-font text-white"><i>LEARN MORE</i></h5>
             </a>
           </b-col>
-          <b-col cols="3">
+          <b-col class="my-auto" sm="2">
+            <a href="">
+              <h5 class="montserat-font text-white"><i>Become A Beach Ambassador</i></h5>
+            </a>
+          </b-col>
+          <b-col cols="1">
           </b-col>
           <b-col sm="2" class="my-auto">
             <img src="@/assets/images/usc_log_white.svg" alt="" width="150" height="150">
