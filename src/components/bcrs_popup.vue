@@ -8,9 +8,6 @@ This is the popup component for the Beach Conditions Reporting System.
         <div id="wq_card"
              class="card wq-card"
         >
-          <!--
-          <img class="card-img-top mote-card" src="@/assets/images/mote-white-logo.png" alt="Mote Marine Beach Condition Reporting System">
-          -->
           <div class="card-header mote-header">
             Beach Conditions Reporting System
           </div>
@@ -86,12 +83,7 @@ This is the popup component for the Beach Conditions Reporting System.
       height: 125px;
       width: 115px;
     }
-    .mote-blue {
-      color: #1461ab;
-    }
     .mote-card {
       background-color: rgb(20, 97, 171);
-      //height: 100px;
-      //width: 100px;
     }
 </style>

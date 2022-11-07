@@ -20,65 +20,56 @@
                 </div>
                 <div class="card-body font-avenir">
                     <b>Site Types</b>
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush legend-test-size">
                         <div v-if="hasIcons('Water Quality')">
                                 <li class="list-group-item">
                                     <img src="@/assets/images/low_marker_25x25.png" class="advisory_icon mr-1">
-                                    Water Quality Sites
+                                    Water Quality Nowcast Sites
                                 </li>
                         </div>
                         <div v-if="hasIcons('Shellfish')">
                             <li class="list-group-item">
                                 <img src="@/assets/images/shellfish_low_marker_25x25.png" class="advisory_icon mr-1">
-                                Shellfish Sites
+                                Shellfish Harvesting Sites
                             </li>
                         </div>
                         <div v-if="hasIcons('Rip Current')">
                             <li class="list-group-item">
                                 <img src="@/assets/images/ripcurrent_low_marker_25x25.png" class="advisory_icon mr-1">
-                                Rip Current  Sites
+                                Rip Current Sites
                             </li>
                         </div>
                         <div v-if="hasIcons('Camera Site')">
                             <li class="list-group-item">
                                 <img src="@/assets/images/webcam_icon.png" class="advisory_icon mr-1">
-                                Camera Sites
+                                WebCOOS Cameras
                             </li>
                         </div>
                         <div v-if="hasIcons('Beach Ambassador')">
                           <li class="list-group-item">
                             <img src="@/assets/images/mote-beach-ambassador-25x41.png" class="advisory_icon mr-1 mote-icon">
-                            Beach Ambassador Sites
+                            BCRS Beach Ambassador Sites
                           </li>
                         </div>
                       <div v-if="hasIcons('Shellcast')">
                         <li class="list-group-item">
                           <img src="@/assets/images/shellcast_marker_25x25.png" class="advisory_icon mr-1">
-                          Shellcast Sites
+                          Shellcast Forecast Sites
                         </li>
                       </div>
                     </ul>
                     <b>Color Codes</b>
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush legend-test-size">
                         <li class="list-group-item">
                                 <div class="color-box lo-color"></div>
                                 Results are low
-                            <!--
-                            <img src="@/assets/images/low_marker_25x25.png" class="advisory_icon">
-                            -->
                         </li>
                         <li class="list-group-item">
                             <div class="color-box hi-color"></div>
-                            <!--
-                            <img src="@/assets/images/high_marker_25x25.png" class="advisory_icon">
-                            -->
                             Results are high.
                         </li>
                         <li class="list-group-item">
                             <div class="color-box none-color"></div>
-                            <!--
-                            <img src="@/assets/images/none_marker_25x25.png" class="advisory_icon">
-                            -->
                             Results are out of date/missing.
                         </li>
                     </ul>
@@ -146,6 +137,9 @@
         right: 0;
         width: 300px;
         height: 200px;
+    }
+    .legend-test-size {
+      font-size: .85em;
     }
     .color-box {
         width: 40px;

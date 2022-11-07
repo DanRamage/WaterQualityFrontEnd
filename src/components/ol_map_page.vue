@@ -150,7 +150,7 @@
     import ShellcastPopup from "./shellcast_popup";
     //import ShellfishPopup from "@/components/shellfish_popup";
     //import RipcurrentPopup from "@/components/riptide_popup";
-    //import CameraPopup from "@/components/camera_popup";
+    import CameraPopupBasic from "@/components/camera_popup_basic";
     //import UnknownTypePopup from "@/components/default_popup"
     import {findPointOnSurface} from 'vuelayers/lib/ol-ext'
     //import moment from 'moment';
@@ -180,7 +180,8 @@
         components: {
           BCRSPopup,
           IconsLegend,
-          ShellcastPopup
+          ShellcastPopup,
+          CameraPopupBasic
         },
         data () {
             return {
@@ -549,6 +550,9 @@
                 }
                 else if(feature.properties.site_type == "Shellcast") {
                   return(ShellcastPopup);
+                }
+                else if(feature.properties.site_type == "Camera Site") {
+                  return(CameraPopupBasic);
                 }
 
 
