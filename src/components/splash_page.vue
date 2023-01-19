@@ -29,6 +29,11 @@
                   <span class="montserat-font">OUTER BANKS</span><br><span class="avenir-font-oblique">North Carolina</span>
                 </div>
               </b-nav-item>
+              <b-nav-item to="/radioisland/map" exact exact-active-class="active">
+                <div class="text-white text-center" @mouseover="site_btn_hover($event, 0)">
+                  <span class="montserat-font">RADIO ISLAND</span><br><span class="avenir-font-oblique">North Carolina</span>
+                </div>
+              </b-nav-item>
               <b-nav-item to="/myrtlebeach/map" exact exact-active-class="active">
                 <div class="text-white text-center" @mouseover="site_btn_hover($event, 1)">
                   <span class="montserat-font">MYRTLE BEACH</span><br><span class="avenir-font-oblique">South Carolina</span>
@@ -81,6 +86,19 @@
                 >
               </template>
             </b-carousel-slide>
+            <b-carousel-slide
+                caption="Radio Island"
+                text="North Carolina"
+            >
+              <template v-slot:img>
+                <img
+                    class="d-block w-100"
+                    height="400"
+                    src="@/assets/images/RadioIslandBeachAccess.jpg"
+                >
+              </template>
+            </b-carousel-slide>
+
             <b-carousel-slide
                     caption="Myrtle Beach"
                     text="South Carolina"

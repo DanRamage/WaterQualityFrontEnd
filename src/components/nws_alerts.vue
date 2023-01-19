@@ -372,11 +372,14 @@
         if(this.latest_obs_data != undefined)
         {
           try {
-            let wind_spd_mph = this.latest_obs_data.windSpeed.value * 0.621371;
-            let index = this.latest_obs_data.windDirection.value % 360;
-            let dir_index = parseInt(index / 22.5);
-            let compass_val = compass_array[dir_index];
-            return (wind_spd_mph.toFixed() + "Mph " + compass_val);
+            if(this.latest_obs_data.windSpeed.value !== null) {
+              let wind_spd_mph = this.latest_obs_data.windSpeed.value * 0.621371;
+              let index = this.latest_obs_data.windDirection.value % 360;
+              let dir_index = parseInt(index / 22.5);
+              let compass_val = compass_array[dir_index];
+              return (wind_spd_mph.toFixed() + "Mph " + compass_val);
+            }
+            return("N/A");
           }
           catch (e) {
             console.exception(e);
@@ -389,8 +392,11 @@
         if(this.latest_obs_data != undefined)
         {
           try {
-            let temp_f = (this.latest_obs_data.temperature.value * 9 / 5) + 32;
-            return (temp_f.toFixed() + " F");
+            if(this.latest_obs_data.temperature.value !== null) {
+              let temp_f = (this.latest_obs_data.temperature.value * 9 / 5) + 32;
+              return (temp_f.toFixed() + " F");
+            }
+            return("N/A");
           }
           catch (e) {
             console.exception(e);
